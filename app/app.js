@@ -11,8 +11,9 @@ import store from './store';
 
 const scenes = Actions.create(
   <Scene key="root">
+    <Scene key="Login" hideNavBar component={ Login } />
     <Scene key="Home" hideNavBar component={ Home } />
-    <Scene key="Login" component={ Login } />
+    
     <Scene key="StoryList" component={ StoryList } />
   </Scene>
 );

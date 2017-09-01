@@ -19,9 +19,12 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "apsl-react-native-button": "^3.1.0",
     "expo": "^20.0.0",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.47.0",
+    "react-native-carousel": "^0.10.0",
+    "react-native-looped-carousel": "^0.1.7",
     "react-native-router-flux": "^4.0.0-beta.21",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
