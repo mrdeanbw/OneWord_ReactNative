@@ -13,10 +13,25 @@ import {
   Alert,
 } from 'react-native';
 import Button from 'apsl-react-native-button';
+import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 //Const images
 const GroupImg = require('../../Assets/images/Group.png');
 
 export default class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nameText : ''
+    }
+  }
+
+  _handlePress(){
+    if (this.state.nameText){
+      Actions.StoryList();
+    }
+
+  } 
+
   render() {
     return (
       <View style={styles.container}>
@@ -31,6 +46,7 @@ export default class Login extends React.Component {
             placeholderTextColor = '#C0C0C0'
             autoCorrect = {false}
             style = {styles.nameText}
+            onChangeText={(nameText) => this.setState({nameText})}
           >
           </TextInput>
           <View
@@ -43,7 +59,9 @@ export default class Login extends React.Component {
             }}
           />
           
-          <Button style={styles.buttonView}>
+          <Button style={styles.buttonView}
+            onPress = {() => this._handlePress()}
+          >
             <View style={styles.exploreStoriesViewStyle}>
               <Text style={styles.exploreStoriesText}>Explore Stories</Text>
             </View>
@@ -83,7 +101,7 @@ const styles = StyleSheet.create({
   exploreStoriesText:{
     color : '#B85CFF',
     textAlign : 'center',
-    fontSize : 20,
+    fontSize : 19,
     paddingHorizontal : 10,
     
   },
@@ -93,7 +111,10 @@ const styles = StyleSheet.create({
   },
   buttonView:{
     backgroundColor: '#FFFFFF',
-    marginBottom : 20
+    borderRadius : 20,
+    marginBottom : 20,
+    borderColor : '#FFFFFF',
+    height : 50
   },
   nameText:{
     color : '#ffffff'

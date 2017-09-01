@@ -11,10 +11,10 @@ import store from './store';
 
 const scenes = Actions.create(
   <Scene key="root">
+    <Scene key="StoryList" component={ StoryList } />
     <Scene key="Login" hideNavBar component={ Login } />
     <Scene key="Home" hideNavBar component={ Home } />
     
-    <Scene key="StoryList" component={ StoryList } />
   </Scene>
 );
 
@@ -24,9 +24,6 @@ export default class Root extends React.Component {
       <Provider store={ store }>
         <Router hideNavBar={ true } scenes={ scenes }/>
       </Provider>
-      // <View>
-      //   <Text>123123</Text>
-      // </View>
     );
   }
 }
