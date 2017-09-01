@@ -13,7 +13,7 @@ import {
   Alert,
 } from 'react-native';
 
-export default class StoryList extends React.Component {
+export default class MyWords extends React.Component {
   render() {
     return (
       <ScrollView style={styles.ScrollViewContainer}>
@@ -25,7 +25,7 @@ export default class StoryList extends React.Component {
           </View>
           <View style={[styles.storyItemView,{backgroundColor : '#ff6852'}]}>
             <TouchableOpacity>
-              <Text style={styles.itemText}>Strip Truth or Dare</Text>
+              <Text style={styles.itemText}>Big brother, little ss</Text>
             </TouchableOpacity>
           </View>
           <View style={[styles.storyItemView,{backgroundColor : '#33a55b'}]}>

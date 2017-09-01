@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-
+import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import Carousel from 'react-native-looped-carousel';
 // import Carousel from 'react-native-carousel';
 
@@ -27,7 +27,9 @@ export default class ClientInfo extends React.Component {
 
     this.state = {
       size: { width, height },
+      currentPageId : 0,
     };
+
   }
 
   _onLayoutDidChange = (e) => {
@@ -44,6 +46,16 @@ export default class ClientInfo extends React.Component {
         indicatorOffset = {400}
         width = {width}
         bullets = {true}
+     
+
+        onAnimateNextPage={
+          (p) => {
+            console.log(p);
+            
+            if (p == 0 && this.state.currentPageId == 2) Actions.Login();
+            this.setState({currentPageId : p});
+          }
+        }
         
 
           //delay={2000}

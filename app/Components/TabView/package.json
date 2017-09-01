@@ -1,0 +1,104 @@
+{
+  "_from": "react-native-tab-view",
+  "_id": "react-native-tab-view@0.0.69",
+  "_inBundle": false,
+  "_integrity": "sha512-0K1wr40cDN90vZWZl3BfwYnUDb2mfRqFHIqkIsJCOlgu6t3vU9/I/afu/whpB3chKgumB925g5qBeC/OdGAODA==",
+  "_location": "/react-native-tab-view",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "react-native-tab-view",
+    "name": "react-native-tab-view",
+    "escapedName": "react-native-tab-view",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-0.0.69.tgz",
+  "_shasum": "f52d4354a98a382f10eb5fcf61db5216c91dc7e7",
+  "_spec": "react-native-tab-view",
+  "_where": "/Leon/Projects/RN/JinR/Oneword/OneWord",
+  "author": {
+    "name": "Satyajit Sahoo",
+    "email": "satyajit.happy@gmail.com",
+    "url": "https://github.com/satya164/"
+  },
+  "bugs": {
+    "url": "https://github.com/react-native-community/react-native-tab-view/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "prop-types": "^15.5.8"
+  },
+  "deprecated": false,
+  "description": "Tab view component for React Native",
+  "devDependencies": {
+    "@expo/vector-icons": "^4.0.0",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^19.0.0",
+    "babel-preset-react-native": "^1.9.1",
+    "enzyme": "3.0.0-alpha.1",
+    "enzyme-to-json": "^1.5.1",
+    "eslint": "^4.2.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-react-native": "^2.3.2",
+    "flow-bin": "~0.45.0",
+    "jest": "^19.0.2",
+    "prettier": "^1.5.3",
+    "react": "16.0.0-alpha.12",
+    "react-dom": "16.0.0-alpha.12",
+    "react-native": "~0.45.1",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "files": [
+    "src/"
+  ],
+  "homepage": "https://github.com/react-native-community/react-native-tab-view#readme",
+  "jest": {
+    "preset": "react-native",
+    "setupFiles": [
+      "<rootDir>/__setup__/enzyme.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules"
+    ]
+  },
+  "keywords": [
+    "react-native-component",
+    "react-component",
+    "react-native",
+    "ios",
+    "android",
+    "tab",
+    "swipe",
+    "scrollable",
+    "coverflow"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "name": "react-native-tab-view",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-native-community/react-native-tab-view.git"
+  },
+  "scripts": {
+    "flow": "flow",
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "version": "0.0.69"
+}
