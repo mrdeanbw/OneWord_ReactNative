@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 //import { TabViewAnimated, TabViewPagerScroll, TabBar, SceneMap } from 'react-native-tab-view';
 import { TabViewAnimated, TabViewPagerScroll, TabBar, SceneMap } from '../../Components/TabView';
-import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
+import { Container, Header, Content, Tab, Tabs } from 'native-base';
 
 import StoryList from './ExploreStory';
 import MyWords from './MyWords';
@@ -45,27 +45,17 @@ export default class Detail extends React.Component {
   render() {
     return (
       <Container>
-        {/* <Header>
-          <Left>
-            <Button transparent>
-              <Icon name="ios-search" size={30} color="#4F8EF7" />
-            </Button>
-          </Left>
-          <Body style={{width : 150}}>
-            <Text style={{fontSize : 20}}>One Word at a Time</Text>
-          </Body>
-          <Right>
-          <Icon name="md-settings" size={30} color="#4F8EF7" />
-          </Right>
-        </Header> */}
-        <TabViewAnimated
-          style={styles.container}
-          navigationState={this.state}
-          renderScene={this._renderScene}
-          renderHeader={this._renderHeader}
-          onIndexChange={this._handleIndexChange}
-        />
+        <Header hasTabs />
+        <Tabs initialPage={0} tabBarPosition = 'top' tabBarUnderlineStyle={{backgroundColor : '#915DF4'}}>
+          <Tab textStyle={{color : '#915DF4'}} heading="Explore Stories" >
+            <StoryList />
+          </Tab>
+          <Tab textStyle={{color : '#915DF4'}} heading="My Words">
+            <MyWords />
+          </Tab>
+        </Tabs>
       </Container>
+      
     );    
   }
 }

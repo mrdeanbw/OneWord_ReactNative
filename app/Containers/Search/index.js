@@ -14,81 +14,75 @@ import {
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
+import { Container, Header, Item, Input, Icon } from 'native-base';
 //Const images
 const GroupImg = require('../../Assets/images/Group.png');
 
-export default class Login extends React.Component {
+export default class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameText : ''
+      searchkey : '',
     }
   }
 
-  _handlePress(){
-    if (this.state.nameText){
-      //Actions.StoryList();
-      Actions.Detail();
-      
-    }
-
-  } 
-
   render() {
+    
     return (
-      <View style={styles.container}>
-        <View style={styles.headerContainer}> 
-          <Image source={ GroupImg } style={styles.GroupImg} resizeMode="contain" />
-          <Text style={styles.titleText}>One Word at a Time</Text>
+    <View style={styles.container}>
+      <Header searchBar rounded style={{paddingTop : 0, height : 50, backgroundColor : '#eeeeee'}}>
+          <Item style={{backgroundColor : '#ffffff'}}>
+            <Input placeholder="Search" onChangeText={(text)=>{this.setState({searchkey : text})}} value={this.state.searchkey} />
+            <Icon name="ios-search" />
+          </Item>
+      </Header>
+
+      <ScrollView style={styles.ScrollViewContainer}>
+        <View>
+          <View style={[styles.storyItemView,{backgroundColor : '#ff6852'}]}>
+            <TouchableOpacity>
+              <Text style={styles.itemText}>Strip Truth or Dare</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.storyItemView,{backgroundColor : '#33a55b'}]}>
+            <TouchableOpacity>
+              <Text style={styles.itemText}>The Elephants and the Monkeys</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.storyItemView,{backgroundColor : '#fc4d61'}]}>
+            <TouchableOpacity>
+              <Text style={styles.itemText}>The Fox and the Wolf</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.storyItemView,{backgroundColor : '#ff6852'}]}>
+            <TouchableOpacity>
+              <Text style={styles.itemText}>Big brother, little sister</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.storyItemView,{backgroundColor : '#FF7D49'}]}>
+            <TouchableOpacity>
+              <Text style={styles.itemText}>Really short story that will make voucry</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.storyItemView,{backgroundColor : '#FF9D3B'}]}>
+            <TouchableOpacity>
+              <Text style={styles.itemText}>What a Lovely Dream</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.storyItemView,{backgroundColor : '#2EC4A3'}]}>
+            <TouchableOpacity>
+              <Text style={styles.itemText}>Strip Truth or Dare</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.InputContainer}> 
-          <TextInput
-            maxLength = {40}
-            placeholder = 'Enter your name...'
-            placeholderTextColor = '#C0C0C0'
-            autoCorrect = {false}
-            style = {styles.nameText}
-            onChangeText={(nameText) => this.setState({nameText})}
-          >
-          </TextInput>
-          <View
-            style={{
-              width : 350,
-              borderBottomColor: '#c0c0c0',
-              borderBottomWidth: 1,  
-              marginTop : 10,
-              marginBottom : 20
-            }}
-          />
-          
-          <Button style={styles.buttonView}
-            onPress = {() => this._handlePress()}
-          >
-            <View style={styles.exploreStoriesViewStyle}>
-              <Text style={styles.exploreStoriesText}>Explore Stories</Text>
-            </View>
-          </Button>
-        </View>
+      </ScrollView>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#B85CFF',
-    alignItems: 'center',
-  },
-  headerContainer:{
-    flex : 6,
-    alignItems: 'center',
-  },
-  GroupImg: {
-    marginTop : 200,
-    marginBottom : 20,
-  
-  },
+
   titleText:{
     color: '#fff',
     textAlign : 'center',
@@ -120,5 +114,31 @@ const styles = StyleSheet.create({
   },
   nameText:{
     color : '#ffffff'
+  },
+  ScrollViewContainer:{
+    flex:1
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    marginTop : 64
+  },
+  storyItemView:{
+    flex : 1,
+    flexDirection: 'row',
+    alignItems : 'center',
+    justifyContent : 'center',
+    borderTopLeftRadius: 6,
+    borderTopRightRadius: 6,
+    marginBottom : -5,   
+    height : 100,
+
+  },
+  itemText:{
+    textAlign : 'center',
+    textAlignVertical : 'center',
+    fontSize : 22,
+    color : '#ffffff',
+    fontWeight : 'bold'
   }
 });

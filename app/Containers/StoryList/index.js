@@ -17,7 +17,7 @@ export default class StoryList extends React.Component {
   render() {
     return (
       <ScrollView style={styles.ScrollViewContainer}>
-         <View style={styles.container}>
+        <View style={styles.container}>
           <View style={[styles.storyItemView,{backgroundColor : '#5CC2FF'}]}>
             <TouchableOpacity>
               <Text style={styles.itemText}>Start a new story...</Text>
