@@ -27,6 +27,7 @@
     "react-native": "^0.47.0",
     "react-native-carousel": "^0.10.0",
     "react-native-looped-carousel": "^0.1.7",
+    "react-native-pin-code": "0.0.2",
     "react-native-router-flux": "^3.40.1",
     "react-native-tab-view": "0.0.69",
     "react-redux": "^5.0.6",

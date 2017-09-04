@@ -40,7 +40,7 @@ export default class Search extends React.Component {
       <ScrollView style={styles.ScrollViewContainer}>
         <View>
           <View style={[styles.storyItemView,{backgroundColor : '#ff6852'}]}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>Actions.ShareStory()}>
               <Text style={styles.itemText}>Strip Truth or Dare</Text>
             </TouchableOpacity>
           </View>

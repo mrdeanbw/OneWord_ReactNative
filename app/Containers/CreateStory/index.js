@@ -23,13 +23,12 @@ const colorPurple = '#B85CFF';
 const colorBlue = '#5CC2FF';
 const colorGreen = '#2CCEB8';
 
-export default class Setting extends React.Component {
+export default class CreateStory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName : 'username',
-      switchVal_newWords : false,
-      switchVal_stories : false
+      storyName : '',
+      switchVal_passCode : false,
     }
   }
 
@@ -39,20 +38,8 @@ export default class Setting extends React.Component {
     <View style={styles.container}>
       <View style={styles.viewContainer}>
         <Form>
-          <Item floatingLabel>
-            <Label style={{fontSize : 15}}>YOUR NAME</Label>
-            <Input 
-              onChangeText={(text)=>{this.setState({userName : text})}} 
-              value={this.state.userName} 
-              style={styles.inputBox}
-            />
-          </Item>
-        </Form>
-      </View>
-      <View style={styles.viewContainer}>
-        <Form>
           <Item style={styles.ListItem}>
-            <Label style={{fontSize : 15}}>DEFAULT COLOR</Label>    
+            <Label style={{fontSize : 15}}>CHOOSE COLOR</Label>    
           </Item>
         </Form>
         <List>
@@ -69,35 +56,46 @@ export default class Setting extends React.Component {
       <View style={styles.viewContainer}>
         <Form>
           <Item style={styles.ListItem}>
-            <Label style={{fontSize : 15}}>NOTIFICATIONS</Label>
+            <Label style={{fontSize : 15}}>PASSCODE</Label>
           </Item>
         </Form>
 
         <List>
           <ListItem icon>
-            <Body>
-              <Text style={styles.itemText}>New words in your stories</Text>
+            <Body style={styles.bodyBottom}>    
+              <TouchableOpacity onPress={()=> Actions.CreatePasscode()}>
+                <Text style={styles.passCode}> -  -  -  - </Text>
+              </TouchableOpacity>
+              
             </Body>
-            <Right>
+            <Right style={styles.bodyBottom}>    
               <Switch 
-                value = {this.state.switchVal_newWords} 
-                onValueChange={(switchVal)=>this.setState({switchVal_newWords : switchVal})} 
+                value = {this.state.switchVal_passCode} 
+                onValueChange={(switchVal)=>this.setState({switchVal_passCode : switchVal})} 
                 onTintColor={colorPurple}
               />
             </Right>
           </ListItem>
+        </List>
+      </View>
 
+      <View style={styles.viewContainer}>
+        <Form>
+          <Item style={styles.ListItem}>
+            <Label style={{fontSize : 20, fontWeight : 'bold', color : '#9e9e9e'}}>Name the Story</Label>
+          </Item>
+        </Form>
+
+        <List>
           <ListItem icon>
-            <Body>
-              <Text style={styles.itemText}>New stories</Text>
-            </Body>
-            <Right>
-              <Switch 
-                value = {this.state.switchVal_stories} 
-                onValueChange={(switchVal)=>this.setState({switchVal_stories : switchVal})} 
-                onTintColor={colorPurple}
+            <Body style={styles.bodyBottom}>
+              <Input placeholder="Write the first word..." 
+                onChangeText={(text)=>{this.setState({storyName : text})}} 
+                value={this.state.storyName} 
+                placeholderTextColor = '#9e9e9e'
+                style={{fontSize : 15}}
               />
-            </Right>
+            </Body>
           </ListItem>
         </List>
       </View>
@@ -136,6 +134,19 @@ const styles = StyleSheet.create({
   },
   labelStyle:{
     fontSize : 15
+  },
+  passCode:{
+    fontSize : 15,
+    fontWeight : 'bold',
+    color : '#7e7e7e',
+    marginHorizontal : 10
+  },
+  bodyBottom:{
+    borderBottomWidth : 0
+  },
+  firstWordInput:{
+    fontSize : 15,
+    color : '#9e9e9e',
   },
 
   itemText1:{

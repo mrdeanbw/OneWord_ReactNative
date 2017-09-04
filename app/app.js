@@ -33,16 +33,22 @@ import Home from './Containers/Home';
 import Login from './Containers/Login';
 import StoryList from './Containers/StoryList';
 import Detail from './Containers/Detail';
-import Search from './Containers/Search'
-import Setting from './Containers/Setting'
-
+import Search from './Containers/Search';
+import Setting from './Containers/Setting';
+import CreateStory from './Containers/CreateStory';
+import CreatePasscode from './Containers/CreatePasscode';
+import EditStory from './Containers/EditStory';
+import ShareStory from './Containers/ShareStory';
 
 // import Icon from 'react-native-vector-icons/Ionicons';
 //Images, Icons
-let backButtonFunction = function(){
+const colorPurpleDark = '#915DF4';
+const colorGreen = '#2CCEB8';
+const colorWhite = '#ffffff';
+let renderBackButton = function(){
   return(
-    <TouchableOpacity onPress={console.log('aaa')}>
-      {/* <Icon name="ios-search" size={30} color="#4F8EF7" /> */}
+    <TouchableOpacity onPress={()=> Actions.pop()}>
+      <Icon name="ios-arrow-back" style={styles.navbarIcon} />
     </TouchableOpacity>
   )
 }
@@ -71,19 +77,59 @@ const scenes = Actions.create(
 
     <Scene key="Search" hideNavBar = {false} title="Search" component={Search} />
     <Scene key="Setting" hideNavBar = {false} title="Setting" component={Setting} 
-      renderBackButton={()=>
-        <TouchableOpacity onPress={()=> Actions.pop()}>
-          <Icon name="ios-arrow-back" style={styles.navbarIcon} />
-        </TouchableOpacity>
-      }
+      renderBackButton={()=>renderBackButton()}
       renderRightButton = {()=>
         <TouchableOpacity onPress={()=>Actions.Detail()}>
           <Text style={styles.navBarButton}>Save</Text>
         </TouchableOpacity>
       }
     />
+    <Scene key="CreateStory" hideNavBar = {false} title="Create Story" component={CreateStory} 
+      renderBackButton={()=>renderBackButton()}
+      renderRightButton = {()=>
+        <TouchableOpacity onPress={()=>Actions.Detail()}>
+          <Text style={styles.navBarButton}>Publish</Text>
+        </TouchableOpacity>
+      }
+    />
+    <Scene key="CreatePasscode" hideNavBar = {false} title="Create passcode" titleStyle={{color:'#ffffff'}} component={CreatePasscode} 
+      navigationBarStyle={{backgroundColor : colorPurpleDark }}
+      renderBackButton={()=>
+        <TouchableOpacity onPress={()=> Actions.pop()}>
+          <Icon name="ios-arrow-back" style={styles.navbarIconWhite} />
+        </TouchableOpacity>
+      }
+    />
+    <Scene key="EditStory" hideNavBar = {true} title="Story" titleStyle={{color:'#00000'}} component={EditStory} 
+      navigationBarStyle={{backgroundColor : colorPurpleDark }}
+      renderBackButton={()=>
+        <TouchableOpacity onPress={()=> Actions.pop()}>
+          <Icon name="ios-arrow-back" style={styles.navbarIconGreen} />
+        </TouchableOpacity>
+      }
+      renderRightButton = {()=>
+        <TouchableOpacity onPress={()=>Actions.Detail()}>
+          <Text style={styles.navBarButtonGreeen}>Edit</Text>
+        </TouchableOpacity>
+      }
+    />
+    <Scene key="ShareStory" hideNavBar = {false} title="Story" titleStyle={{color: colorWhite}} component={ShareStory} 
+      navigationBarStyle={{backgroundColor : colorGreen }}
+      renderBackButton={()=>
+        <TouchableOpacity onPress={()=> Actions.pop()}>
+          <Icon name="ios-arrow-back" style={styles.navbarIconWhite} />
+        </TouchableOpacity>
+      }
+      renderRightButton = {()=>
+        <TouchableOpacity onPress={()=>Actions.Detail()}>
+          <Text style={styles.navBarButtonWhite}>Share</Text>
+        </TouchableOpacity>
+      }
+    />
+    
   </Scene>
 );
+
 
 export default class Root extends React.Component {
   render() {
@@ -97,11 +143,35 @@ export default class Root extends React.Component {
 
 const styles = StyleSheet.create({
   navBarButton:{
-    color : '#915DF4',
+    color : colorPurpleDark,
     fontSize : 18
   },
   navbarIcon:{
     fontSize: 30, 
-    color: '#915DF4' 
-  }
+    color: colorPurpleDark
+  },
+  navbarIconWhite:{
+    fontSize: 30, 
+    color: '#ffffff' 
+  },
+  navbarIconGreen:{
+    fontSize: 30, 
+    color: '#00ff00' 
+  },
+  navbarIconWhite:{
+    fontSize: 30, 
+    color: colorWhite
+  },
+  navBarStyle:{
+    color : colorPurpleDark
+  },
+  navBarButtonGreeen:{
+    fontSize : 30,
+    color : '#00ff00'
+  },
+  navBarButtonWhite:{
+    fontSize : 18,
+    color : '#ffffff'
+  },
+
 });
