@@ -3,8 +3,7 @@ import {
   AsyncStorage,
   ActivityIndicator,
   StyleSheet,
-  Text,
-  Button,
+  Text, 
   View,
   Image,
   TextInput,
@@ -15,14 +14,9 @@ import {
 } from 'react-native';
 //import Button from 'apsl-react-native-button';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
-import { Form, Item, Input, Label, List, ListItem, Icon, Body, Right, Switch } from 'native-base';
+import {  Button, Form, Item, Input, Label, List, ListItem, Icon, Body, Right, Switch } from 'native-base';
 //Const images, colors
-const colorPink = '#FF9D3B';
-const colorNavy = '#FD65AF';
-const colorPurple = '#B85CFF';
-const colorBlue = '#5CC2FF';
-const colorGreen = '#2CCEB8';
-const colorWhite = '#ffffff'
+import colors from '../../Constants/colors'
 
 export default class ShareStory extends React.Component {
   constructor(props) {
@@ -35,7 +29,6 @@ export default class ShareStory extends React.Component {
   }
 
   render() {
-    
     return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -48,15 +41,11 @@ export default class ShareStory extends React.Component {
           multiline={true} 
           editable={false}
           style={styles.storyContent}
-        >
-          {this.state.storyContent}
-        </TextInput>
-        <Button 
-          title="Join the Story" 
-          color={colorGreen} 
-          style={styles.buttonStyle} 
-          onPress={()=>Actions.EditStory()}
+          value = {this.state.storyContent}
         />
+        <Button style={styles.JoinButton} onPress={()=>Actions.ShowStory()}>
+          <Text style={styles.buttonText}>Join the Story</Text>
+        </Button>
       </View>
     </View>
     );
@@ -66,7 +55,7 @@ export default class ShareStory extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colorGreen,
+    backgroundColor: colors.colorGreen,
     marginTop : 64
   },
   titleContainer:{
@@ -79,8 +68,8 @@ const styles = StyleSheet.create({
     flex : 1,
     marginTop : 30,
     marginHorizontal : 20,
-    backgroundColor : colorWhite,
-    
+    backgroundColor : colors.colorWhite,
+    borderRadius : 10  
   },  
   ListItem:{
     borderWidth : 0,
@@ -97,27 +86,41 @@ const styles = StyleSheet.create({
   },
   titleStyle:{
     fontSize : 30,
-    color : colorWhite,
-    // fontWeight : 'bold',
+    color : colors.colorWhite,
+    fontWeight : 'bold',
     textAlign : 'center'
   },
   byWriter:{
     marginTop : 15,
     textAlign : 'center',
     fontSize : 15,
-    color : colorWhite,
+    color : colors.colorWhite,
   },
   storyContent:{
     flex : .9,
-    fontSize : 15,
-
+    fontSize : 16,
+    lineHeight : 30,
+    marginHorizontal : 10,
+    marginTop : 10
   },
   buttonStyle:{
-    backgroundColor : colorGreen,
-    borderColor : colorGreen,
-    //marginHorizontal : 50,
+    backgroundColor : colors.colorGreen,
+    borderColor : colors.colorGreen,
     borderWidth : 0,
     borderRadius : 20,
     overflow : 'visible'
   },
+  JoinButton:{
+    backgroundColor : colors.colorGreen,
+    borderColor : colors.colorGreen,
+    borderRadius : 20,
+    width : 200,
+    justifyContent : 'center',
+    alignSelf : 'center',
+  },
+  buttonText:{
+    color : colors.colorWhite,
+    textAlign : 'center',
+    fontSize : 20
+  }
 });

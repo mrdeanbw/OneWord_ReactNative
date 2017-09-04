@@ -16,10 +16,7 @@ import Button from 'apsl-react-native-button';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import { Form, Item, Input, Label, List, ListItem, Icon, Body, Right, Switch } from 'native-base';
 import CodePin from 'react-native-pin-code';
-
 //Const images
-const GroupImg = require('../../Assets/images/Group.png');
-const colorPink = '#fefefe';
 
 export default class CreatePasscode extends React.Component {
   constructor(props) {
@@ -43,29 +40,7 @@ export default class CreatePasscode extends React.Component {
         <View style={styles.headerContainer}> 
           <Text style={styles.titleText}>Strip Truth or Dare</Text>
         </View>
-        {/* <View style={styles.passcodeContainer}>
-          <List>
-            <ListItem>
-              <View style={[styles.colorBoxItem, {backgroundColor:colorPink}]} >
-                <TextInput
-                  value={this.state.text}
-                >
 
-                </TextInput>
-              </View>
-              <View style={[styles.colorBoxItem, {backgroundColor:colorPink}]}/> 
-                <Input
-                  onChangeText={(text)=>{this.setState({storyName : text})}} 
-                  value='q'
-                  placeholderTextColor = '#9e9e9e'
-                  style={{fontSize : 15}}
-                >
-                </Input>
-              <View style={[styles.colorBoxItem, {backgroundColor:colorPink}]}/> 
-              <View style={[styles.colorBoxItem, {backgroundColor:colorPink}]}/> 
-            </ListItem>
-          </List>
-        </View> */}
         <CodePin
           ref={ref => this.ref = ref}
           code = 'number'
@@ -92,11 +67,6 @@ const styles = StyleSheet.create({
   headerContainer:{
     marginTop : 100,
     alignItems: 'center',
-  },
-  GroupImg: {
-    marginTop : 200,
-    marginBottom : 20,
-  
   },
   titleText:{
     color: '#fff',

@@ -12,77 +12,104 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-//import Button from 'apsl-react-native-button';
+
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
-import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
+import { Form, Item, Label, List, ListItem, Input, Switch, Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 //Const images, colors
-const colorPink = '#FF9D3B';
-const colorNavy = '#FD65AF';
-const colorPurple = '#B85CFF';
-const colorBlue = '#5CC2FF';
-const colorGreen = '#2CCEB8';
-const colorGreenLight = '#33c08d';
-const colorWhite = '#ffffff'
+import colors from '../../Constants/colors'
 
 export default class EditStory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleText : 'The Elephants and the Monkeys',    
+      storyTitle : 'The Elephants and the Monkeys',    
       writerName : 'jamesmiller94',
       storyContent : 'Once upon a time there lived a group of elephants in the jungle. They lived near a pond.     The king of monkeys was thinking how to send back elephants. He thought very much and got an idea. When elephants will go to the jungle to eat food, monkeys will tell them that the lions are coming to that pond. The elephants should go away. If the lions see them, they will kill them and eat them. So they should go from there. Next morning the king of monkeys told everything to the elephants. Hearing this they ran away from the pond and',
-      wordText : ''
+      wordText : '',
+      passCode : '6308',
+      switchVal_passcode : false, 
     }
   }
 
   render() {
-    
+    console.log(this.state.passCode);
     return (
     <View style={styles.container}>
       <Header style={styles.headerContainer}>
         <Left>
-          <Button transparent>
-            <Icon name='arrow-back' style={{color : colorGreenLight}}/>
+          <Button transparent onPress={()=>Actions.pop()}>
+            <Icon name='arrow-back' style={{color : colors.colorRedLight}}/>
           </Button>
         </Left>
         <Body>
-          <Title style={styles.headerTitle}>Story</Title>
+          <Title style={styles.headerTitle}>Edit Story</Title>
         </Body>
         <Right>
-          <Button transparent>
-            <Text style={styles.headerRightBtn}>Edit</Text>
+          <Button transparent onPress={()=>Actions.ShowStory()}>
+            <Text style={styles.headerRightBtn}>Save</Text>
           </Button>
         </Right>
       </Header>
 
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleStyle}>{this.state.titleText}</Text>  
-        <Text style={styles.byWriter}>{'by ' + this.state.writerName}</Text>
+      <View style={styles.colorBoxContainer}>
+        <Form>
+          <Item style={styles.ListItem}>
+            <Label style={{fontSize : 15}}>CHOOSE COLOR</Label>    
+          </Item>
+        </Form>
+        <List>
+          <ListItem style={styles.colorListItem}>
+            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPink}]}/>            
+            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorNavy}]}/>       
+            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPurple}]}/>       
+            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorBlue}]}/>       
+            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorGreen}]}/>      
+          </ListItem>
+        </List>
+      </View>
+      <View style={styles.colorBoxContainer}>
+        <Form>
+          <Item style={styles.ListItem}>
+            <Label style={{fontSize : 15}}>PASSCODE</Label>    
+          </Item>
+        </Form>
+        <List>
+          <ListItem icon>
+            <Body>
+              <Text style={styles.itemText}>{this.state.passCode}</Text>
+            </Body>
+            <Right>
+              <Switch 
+                value = {this.state.switchVal_passcode} 
+                onValueChange={(switchVal)=>this.setState({switchVal_passcode : switchVal})} 
+                onTintColor={colors.colorNavy}
+              />
+            </Right>
+          </ListItem>
+        </List>
       </View>
       
       <View style={styles.storyContentContainer}>
+        <Label style={styles.storyTitle}>{this.state.storyTitle}</Label>
         <TextInput 
           multiline={true} 
-          editable={false}
+          editable={true}
           style={styles.storyContent}
-        >
-          {this.state.storyContent}
-        </TextInput>
-
+          onChangeText={(storyText)=>this.setState({storyContent : storyText})}
+          value = {this.state.storyContent}
+        />
       </View>
+
       <TextInput 
-          //multiline={true} 
-          placeholder = "Enter a word"
-          placeholderTextColor = {colorGreenLight}
-          borderColor = {colorGreenLight}
-          borderRadius = {1}
-          style={styles.inputBox}
-          onChangeText={(text) => this.setState({wordText: text})}
-          value={this.state.wordText}
-        >
-      </TextInput>
-
-
+        placeholder = "Enter a word"
+        placeholderTextColor = {colors.colorGreenLight}
+        autoCorrect = {false}
+        borderColor = {colors.colorGreenLight}
+        borderRadius = {1}
+        style={styles.inputBox}
+        onChangeText={(text) => this.setState({wordText: text})}
+        value={this.state.wordText}
+      />
     </View>
     );
   }
@@ -91,30 +118,34 @@ export default class EditStory extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colorWhite,
+    backgroundColor: colors.colorWhite,
     //marginTop : 64
   },
-  titleContainer:{
-    marginTop : 30
-  },
-  formContainer:{
-    marginTop : 20
+  colorBoxContainer:{
+    marginTop : 20,
+    borderBottomWidth : 0
+
   },
   headerContainer:{
-    backgroundColor : colorWhite,
+    backgroundColor : colors.colorWhite,
   },
   storyContentContainer:{
     flex : 1,
     marginTop : 30,
     marginHorizontal : 20,
-    backgroundColor : colorWhite,
+    backgroundColor : colors.colorWhite,
+    borderBottomWidth : .5,
+    borderColor : 'rgba(0,0,0,.5)',
+    marginBottom : 10
   },  
   ListItem:{
     borderWidth : 0,
     borderBottomWidth : 0
   },
   itemText:{
-    fontSize : 17,
+    fontSize : 20,
+    letterSpacing : 10,
+    color : 'rgba(0,0,0,1.0)'
   },
   colorBoxItem:{
     width : 30,
@@ -122,45 +153,34 @@ const styles = StyleSheet.create({
     marginHorizontal : 6,
     borderRadius : 4
   },
-  titleStyle:{
-    fontSize : 20,
-    color : 'rgba(0,0,0,.8)',
-    fontWeight : 'bold',
-    textAlign : 'center'
+  colorListItem:{
+    borderBottomWidth : 0
   },
-  byWriter:{
-    marginTop : 15,
-    textAlign : 'center',
-    fontSize : 15,
-    color : colorWhite,
+  storyTitle:{
+    fontSize : 20,
+    fontWeight : 'bold',
+    color : 'rgba(0,0,0,.7)',
+    marginBottom : 20
   },
   storyContent:{
     flex : .9,
     fontSize : 15,
+    lineHeight : 30
   },
   headerTitle:{
     color : 'rgba(0,0,0,.5)'
   },
   headerRightBtn:{
-    color:colorGreenLight,
+    color:colors.colorRedLight,
     fontSize : 17
   },
-  buttonStyle:{
-    backgroundColor : colorGreen,
-    borderColor : colorGreen,
-    //marginHorizontal : 50,
-    borderWidth : 0,
-    borderRadius : 20,
-    overflow : 'visible'
-  },
   inputBox:{
-    borderColor : colorGreenLight,
+    //borderColor : colors.colors.colorGreenLight,
+    //borderWidth : 1,
     opacity  : .8,
     borderRadius : 15,
-    borderWidth : 1,
-    marginBottom : 10,
-    marginHorizontal : 10,
-    padding : 8
-    
+    marginBottom : 20,
+    marginHorizontal : 20,
+    //padding : 8
   }
 });

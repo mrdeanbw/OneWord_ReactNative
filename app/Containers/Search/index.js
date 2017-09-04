@@ -15,8 +15,6 @@ import {
 import Button from 'apsl-react-native-button';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import { Container, Header, Item, Input, Icon } from 'native-base';
-//Const images
-const GroupImg = require('../../Assets/images/Group.png');
 
 export default class Search extends React.Component {
   constructor(props) {

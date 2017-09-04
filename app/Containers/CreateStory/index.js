@@ -16,13 +16,7 @@ import Button from 'apsl-react-native-button';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import { Form, Item, Input, Label, List, ListItem, Icon, Body, Right, Switch } from 'native-base';
 //Const images, colors
-const GroupImg = require('../../Assets/images/Group.png');
-const colorPink = '#FF9D3B';
-const colorNavy = '#FD65AF';
-const colorPurple = '#B85CFF';
-const colorBlue = '#5CC2FF';
-const colorGreen = '#2CCEB8';
-
+import colors from '../../Constants/colors';
 export default class CreateStory extends React.Component {
   constructor(props) {
     super(props);
@@ -44,11 +38,11 @@ export default class CreateStory extends React.Component {
         </Form>
         <List>
           <ListItem>
-            <View style={[styles.colorBoxItem, {backgroundColor:colorPink}]}/>            
-            <View style={[styles.colorBoxItem, {backgroundColor:colorNavy}]}/>       
-            <View style={[styles.colorBoxItem, {backgroundColor:colorPurple}]}/>       
-            <View style={[styles.colorBoxItem, {backgroundColor:colorBlue}]}/>       
-            <View style={[styles.colorBoxItem, {backgroundColor:colorGreen}]}/>      
+            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPink}]}/>            
+            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorNavy}]}/>       
+            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPurple}]}/>       
+            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorBlue}]}/>       
+            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorGreen}]}/>      
           </ListItem>
         </List>
       </View>
@@ -72,7 +66,7 @@ export default class CreateStory extends React.Component {
               <Switch 
                 value = {this.state.switchVal_passCode} 
                 onValueChange={(switchVal)=>this.setState({switchVal_passCode : switchVal})} 
-                onTintColor={colorPurple}
+                onTintColor={colors.colorPurple}
               />
             </Right>
           </ListItem>

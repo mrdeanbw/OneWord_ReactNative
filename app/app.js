@@ -38,6 +38,7 @@ import Setting from './Containers/Setting';
 import CreateStory from './Containers/CreateStory';
 import CreatePasscode from './Containers/CreatePasscode';
 import EditStory from './Containers/EditStory';
+import ShowStory from './Containers/ShowStory';
 import ShareStory from './Containers/ShareStory';
 
 // import Icon from 'react-native-vector-icons/Ionicons';
@@ -100,19 +101,8 @@ const scenes = Actions.create(
         </TouchableOpacity>
       }
     />
-    <Scene key="EditStory" hideNavBar = {true} title="Story" titleStyle={{color:'#00000'}} component={EditStory} 
-      navigationBarStyle={{backgroundColor : colorPurpleDark }}
-      renderBackButton={()=>
-        <TouchableOpacity onPress={()=> Actions.pop()}>
-          <Icon name="ios-arrow-back" style={styles.navbarIconGreen} />
-        </TouchableOpacity>
-      }
-      renderRightButton = {()=>
-        <TouchableOpacity onPress={()=>Actions.Detail()}>
-          <Text style={styles.navBarButtonGreeen}>Edit</Text>
-        </TouchableOpacity>
-      }
-    />
+    <Scene key="EditStory" hideNavBar = {true} title="Story" titleStyle={{color:'#00000'}} component={EditStory} />
+    <Scene key="ShowStory" hideNavBar = {true} title="Story" titleStyle={{color:'#00000'}} component={ShowStory} />
     <Scene key="ShareStory" hideNavBar = {false} title="Story" titleStyle={{color: colorWhite}} component={ShareStory} 
       navigationBarStyle={{backgroundColor : colorGreen }}
       renderBackButton={()=>

@@ -46,29 +46,13 @@ export default class ClientInfo extends React.Component {
         indicatorOffset = {400}
         width = {width}
         bullets = {true}
-     
-
         onAnimateNextPage={
           (p) => {
             console.log(p);
-            
             if (p == 0 && this.state.currentPageId == 2) Actions.Login();
             this.setState({currentPageId : p});
           }
         }
-        
-
-          //delay={2000}
-          //autoplay
-          //pageInfo
-          //onAnimateNextPage={(p) => console.log(p)}
-          //animate = {false}
-          //hideIndicators = {false}
-          //indicatorColor = '#ffffff'
-          //inactiveIndicatorColor = '#aaa'
-          //style = {styles.Caroussel}
-          //indicatorOffset = {400}
-          //indicatorSize = {40}
         loop = {false}
       >
         {/* Explore */}
@@ -148,16 +132,11 @@ const styles = StyleSheet.create({
     marginBottom : 70
   },
   titleText:{
-    //flexDirection: 'row',
-    //flex : 1,
-    //justifyContent : 'center',
     textAlign : 'center',
     color: '#fff',
     fontSize : 25,
     paddingBottom : 15,
     fontWeight : 'bold'
-    
-    
   },
   contentContainer:{
     marginHorizontal : 10

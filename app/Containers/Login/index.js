@@ -27,7 +27,6 @@ export default class Login extends React.Component {
 
   _handlePress(){
     if (this.state.nameText){
-      //Actions.StoryList();
       Actions.Detail();
     }
   } 
