@@ -25,12 +25,11 @@ export default class Search extends React.Component {
   }
 
   render() {
-    
     return (
     <View style={styles.container}>
       <Header searchBar rounded style={{paddingTop : 0, height : 50, backgroundColor : '#eeeeee'}}>
           <Item style={{backgroundColor : '#ffffff'}}>
-            <Input placeholder="Search" onChangeText={(text)=>{this.setState({searchkey : text})}} value={this.state.searchkey} />
+            <Input placeholder="Names of stories" onChangeText={(text)=>{this.setState({searchkey : text})}} value={this.state.searchkey} />
             <Icon name="ios-search" />
           </Item>
       </Header>

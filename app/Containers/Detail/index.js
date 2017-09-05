@@ -16,13 +16,13 @@ import {
 import { TabViewAnimated, TabViewPagerScroll, TabBar, SceneMap } from '../../Components/TabView';
 import { Container, Header, Content, Tab, Tabs } from 'native-base';
 
+import { connect } from 'react-redux';
 import StoryList from './ExploreStory';
 import MyWords from './MyWords';
 const FirstRoute = () => <StoryList />
 const SecondRoute = () => <MyWords />
  
-
-export default class Detail extends React.Component {
+class Detail extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -32,6 +32,15 @@ export default class Detail extends React.Component {
         { key: '2', title: 'My Words' },
       ],
     }
+  }
+  componentWillMount(){
+    let userName = this.props.userName;
+    console.log('userName from store', userName);
+  }
+
+  componenDidMount(){
+    let userName = this.props.userName;
+    console.log('userName from store', userName);
   }
   _handleIndexChange = index => this.setState({ index });
   
@@ -55,7 +64,6 @@ export default class Detail extends React.Component {
           </Tab>
         </Tabs>
       </Container>
-      
     );    
   }
 }
@@ -87,3 +95,15 @@ const styles = StyleSheet.create({
     fontWeight : 'bold'
   }
 });
+
+const mapStateToProps = (state) => ({
+  userName : state.user.userName
+});
+const mapDispatchToProps = (dispatch) => ({
+  login: (userName) => dispatch(authActions.login(userName)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Detail);

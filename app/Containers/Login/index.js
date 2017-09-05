@@ -12,23 +12,51 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import { connect } from 'react-redux';
 import Button from 'apsl-react-native-button';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 //Const images
 const GroupImg = require('../../Assets/images/Group.png');
-
-export default class Login extends React.Component {
+import firebase, {firebaseApp, firebaseDb} from '../../Constants/firebase'
+import * as authActions from '../../actions/auth';
+// export default class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameText : ''
+      userName : ''
     }
   }
+  componentWillMount(){
+    // firebase.database().ref('Stories/').push({
+    //   color : '111',
+    //   passCode : '111',
+    //   storyName : 'Elephant and Monkey',
+    //   storyContent : ''
+    // })
+    // .then((res)=>console.log(res))
+    let userName = this.props.userName;
+    console.log('userName from store', userName);
+  }
 
-  _handlePress(){
-    if (this.state.nameText){
+  _handleExploreStories(){
+    if (this.state.userName){
+      firebase.database().ref('Users/').orderByChild("userName").equalTo(this.state.userName).once("value",snapshot => {
+        let userData = snapshot.val();
+        if (userData){
+          console.log("userData already exist", userData);
+        }
+        else{
+          firebase.database().ref('Users/').push({
+            userName : this.state.userName
+          })
+          .then((res)=> console.log('user registerd!', res))
+        }
+      });
+      this.props.login(this.state.userName);
       Actions.Detail();
     }
+    return;
   } 
 
   render() {
@@ -45,7 +73,7 @@ export default class Login extends React.Component {
             placeholderTextColor = '#C0C0C0'
             autoCorrect = {false}
             style = {styles.nameText}
-            onChangeText={(nameText) => this.setState({nameText})}
+            onChangeText={(userName) => this.setState({userName})}
           >
           </TextInput>
           <View
@@ -59,7 +87,7 @@ export default class Login extends React.Component {
           />
           
           <Button style={styles.buttonView}
-            onPress = {() => this._handlePress()}
+            onPress = {() => this._handleExploreStories()}
           >
             <View style={styles.exploreStoriesViewStyle}>
               <Text style={styles.exploreStoriesText}>Explore Stories</Text>
@@ -105,17 +133,29 @@ const styles = StyleSheet.create({
     
   },
   exploreStoriesViewStyle:{
-    width : 300,
-    borderRadius: 10,
+    // width : '90%',
+    // borderRadius: 10,
   },
   buttonView:{
     backgroundColor: '#FFFFFF',
-    borderRadius : 20,
-    marginBottom : 20,
     borderColor : '#FFFFFF',
+    borderRadius : 20,
     height : 50
   },
   nameText:{
     color : '#ffffff'
   }
 });
+
+const mapStateToProps = (state) => ({
+  userName : state.userName
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (userName) => dispatch(authActions.login(userName)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

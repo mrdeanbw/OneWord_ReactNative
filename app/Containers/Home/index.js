@@ -12,8 +12,12 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import firebase, {firebaseApp, firebaseDb} from '../../Constants/firebase'
+// import * as firebase from 'firebase';
+
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import Carousel from 'react-native-looped-carousel';
+
 // import Carousel from 'react-native-carousel';
 
 //const image
@@ -31,7 +35,26 @@ export default class ClientInfo extends React.Component {
     };
 
   }
-
+  componentWillMount(){
+    // Initialize Firebase
+  // const firebaseConfig = {
+  //   apiKey: "AIzaSyDCVIzhFishp1DSIrCGX5tLSi1g8i4ggr0",
+  //   //authDomain: "<your-auth-domain>",
+  //   databaseURL: "https://one-word-at-a-time.firebaseio.com",
+  //   storageBucket: "one-word-at-a-time.appspot.com"
+  // };
+  //   if (!firebase.apps.length) {
+  //     const firebaseApp = firebase.initializeApp(firebaseConfig);
+  //   }
+    firebase.database().ref('Stories/').push({
+      color : 'red',
+      passCode : '6308',
+      storyName : 'Elephant and Monkey',
+      storyContent : ''
+    })
+    .then((res)=>console.log(res))
+    
+  }
   _onLayoutDidChange = (e) => {
     const layout = e.nativeEvent.layout;
     this.setState({ size: { width: layout.width, height: layout.height } });

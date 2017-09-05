@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     fontSize : 30,
     color : colors.colorWhite,
     fontWeight : 'bold',
+    marginHorizontal : 10,
     textAlign : 'center'
   },
   byWriter:{

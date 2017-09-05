@@ -2,9 +2,11 @@ export default {
   colorPink : '#FF9D3B',
   colorNavy : '#FD65AF',
   colorPurple : '#B85CFF',
+  colorPurpleDark : '#915DF4',
   colorBlue : '#5CC2FF',
   colorGreen : '#2CCEB8',
   colorGreenLight : '#33c08d',
   colorWhite : '#ffffff',
   colorRedLight : '#fd6688',
+  colorBlack : '#000000',
 };

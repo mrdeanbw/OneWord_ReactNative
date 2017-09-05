@@ -48,7 +48,7 @@ export default class ShowStory extends React.Component {
 
       <View style={styles.titleContainer}>
         <Text style={styles.titleStyle}>{this.state.titleText}</Text>  
-        <Text style={styles.byWriter}>{'by ' + this.state.writerName}</Text>
+        {/* <Text style={styles.byWriter}>{'by ' + this.state.writerName}</Text> */}
       </View>
       
       <View style={styles.storyContentContainer}>
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
   },
   headerContainer:{
     backgroundColor : colors.colorWhite,
+    borderBottomWidth : 0
   },
   storyContentContainer:{
     flex : 1,
@@ -113,7 +114,9 @@ const styles = StyleSheet.create({
     fontSize : 20,
     color : 'rgba(0,0,0,.8)',
     fontWeight : 'bold',
-    textAlign : 'center'
+    textAlign : 'center',
+    marginHorizontal : 10
+
   },
   byWriter:{
     marginTop : 15,

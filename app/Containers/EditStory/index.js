@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
   },
   headerContainer:{
     backgroundColor : colors.colorWhite,
+    borderBottomWidth : 0
   },
   storyContentContainer:{
     flex : 1,
