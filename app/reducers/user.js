@@ -1,9 +1,9 @@
 import * as types from '../actions/types';
 const initialState = {
   userName : '',
-  // userData: {
-  //   userName : ''
-  // },
+  defaultThemeColor : '',
+  isNewWordNotifyEnabled : false,
+  isNewStoriesNotifyEnabled : false,
   loading: false,
   //error: null,
   //token: '',
@@ -17,8 +17,17 @@ export default function Auth_user(state = initialState, action = {}){
       console.log(action.userName);
       return {
         ...state,
-        userName : action.userName
+        userName : action.userName,
+        userId : action.userId
       }
+     case types.SETTING_USER_SUCCESS:
+     return {
+      ...state,
+      userName : action.userName,
+      defaultThemeColor : action.defaultThemeColor,
+      isNewWordNotifyEnabled : action.isNewWordNotifyEnabled,
+      isNewStoriesNotifyEnabled : actio.isNewStoriesNotifyEnabled,
+    }
     default:
       return state;
   }

@@ -28,21 +28,14 @@ class Login extends React.Component {
     }
   }
   componentWillMount(){
-    // firebase.database().ref('Stories/').push({
-    //   color : '111',
-    //   passCode : '111',
-    //   storyName : 'Elephant and Monkey',
-    //   storyContent : ''
-    // })
-    // .then((res)=>console.log(res))
-    let userName = this.props.userName;
-    console.log('userName from store', userName);
+
   }
 
   _handleExploreStories(){
     if (this.state.userName){
       firebase.database().ref('Users/').orderByChild("userName").equalTo(this.state.userName).once("value",snapshot => {
         let userData = snapshot.val();
+        var userId = Object.keys(userData)[0];
         if (userData){
           console.log("userData already exist", userData);
         }
@@ -50,10 +43,10 @@ class Login extends React.Component {
           firebase.database().ref('Users/').push({
             userName : this.state.userName
           })
-          .then((res)=> console.log('user registerd!', res))
+          .then((res)=> console.log('user registerd!', res, res.key))
         }
       });
-      this.props.login(this.state.userName);
+      this.props.login(this.state.userName, userId);
       Actions.Detail();
     }
     return;
@@ -152,7 +145,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (userName) => dispatch(authActions.login(userName)),
+  login: (userName, userId) => dispatch(authActions.login(userName, userId)),
 });
 
 export default connect(

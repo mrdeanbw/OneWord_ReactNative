@@ -12,36 +12,50 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-// import Button from 'apsl-react-native-button';
+
+import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
-//import { Form, Item, Input, Label, List, ListItem, Icon, Body, Right, Switch } from 'native-base';
 import { Form, Item, Label, List, ListItem, Input, Switch, Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import colors from '../../Constants/colors';
 import firebase, {firebaseApp, firebaseDb} from '../../Constants/firebase';
+import * as authActions from '../../actions/auth';
 
-export default class Setting extends React.Component {
+class Setting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName : 'username',
+      userId : null,
+      userName : '',
       dafaultThemeColor : 'red',
       switchVal_newWords : false,
       switchVal_stories : false,
       selectedThemeId : 0
     }
   }
-  handleSave(){
-    firebase.database().ref('Users/').push({
-      username : this.state.userName,
-      defaultThemeColor : this.state.dafaultThemeColor,
-      isNewWordNotifyEnabled : false,
-      isNewStoriesNotifyEnabled : false,
-      //passCode : this.state.passCode,
-      //storyName : this.state.storyName,
-      //storyContent : ''
-    })
-    .then((res)=>console.log(res));
 
+  componentWillMount(){
+    let userId = this.props.userId;
+    let userName = this.props.userName;
+    this.setState({userName : userName, userId : userId});
+  }
+  handleSave(){
+    // firebase.database().ref('Users/').push({
+    //   username : this.state.userName,
+    //   defaultThemeColor : this.state.dafaultThemeColor,
+    //   isNewWordNotifyEnabled : false,
+    //   isNewStoriesNotifyEnabled : false,
+    //   //passCode : this.state.passCode,
+    //   //storyName : this.state.storyName,
+    //   //storyContent : ''
+    // })
+    // .then((res)=>console.log(res));
+    //setUser()
+    this.props.setUser(
+      this.state.userId, 
+      this.state.userName, 
+      this.state.defaultThemeColor, 
+      this.state.isNewWordNotifyEnabled, 
+      this.state.isNewStoriesNotifyEnabled)
     Actions.ShowStory();
   }
   handleChooseColor(themeId){
@@ -203,3 +217,16 @@ const styles = StyleSheet.create({
     fontWeight : 'bold'
   }
 });
+
+const mapStateToProps = (state) => ({
+  userName : state.user.userName
+});
+const mapDispatchToProps = (dispatch) => ({
+  setUser : (userId, userName, defaultThemeColor, isNewWordNotifyEnabled, isNewStoriesNotifyEnabled) => 
+                dispatch(authActions.setUser(userId, userName, defaultThemeColor, isNewWordNotifyEnabled, isNewStoriesNotifyEnabled))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Setting);
