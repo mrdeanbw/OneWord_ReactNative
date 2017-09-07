@@ -12,45 +12,83 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-//import Button from 'apsl-react-native-button';
+
+import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
-//import { Form, Item, Input, Label, List, ListItem, Icon, Body, Right, Switch } from 'native-base';
 import { Form, Item, Label, List, ListItem, Input, Switch, Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import firebase, {firebaseApp, firebaseDb} from '../../Constants/firebase';
+import * as authActions from '../../actions/auth';
 //Const images, colors
 import colors from '../../Constants/colors';
-export default class CreateStory extends React.Component {
+
+class CreateStory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      storyThemeColor : 'red',
-      passCode : '6308',
-      storyName : 'Elephant and Monkey',
-      switchVal_passCode : false,
-      selectedThemeId : 0,
+      userId : null,
+      storyThemeColor : '2',
+      passCode : '',
+      storyName : '',
+      isShowPasscode_enabled : false,
+      selectedThemeId : 2,
     }
   }
+  componentWillMount(){
+    let userId = this.props.userId;
+    let userName = this.props.userName;
+    let defaultThemeColor = this.props.defaultThemeColor;
+    console.log('createstory', userId, userName, defaultThemeColor);
 
-  onPublic(){
+    this.setState({passCode : this.props.passCode});
+    //this.setState({selectedThemeId : this.props.selectedThemeId});
+    //this.setState({storyName : this.props.storyName});
+  }
+
+  componentDidMount(){
+    this.setState({passCode : this.props.passCode});
+    this.setState({selectedThemeId : this.props.selectedThemeId});
+    this.setState({storyName : this.props.storyName});
+  }
+  componentWillReceiveProps(nextProps){
+    console.log('nextProps', nextProps);
+    if (this.state.passCode != nextProps.passCode){
+      this.setState({passCode : nextProps.passCode});
+    }
+  }
+  
+  onPublish(){
+    if (!this.state.storyName) {
+      return Alert.alert('Please fill out Story Name');
+    }
     firebase.database().ref('Stories/').push({
       defaultStoryThemeColor : this.state.storyThemeColor,
       passCode : this.state.passCode,
       storyName : this.state.storyName,
-      storyContent : ''
+      storyContent : '',
+      createdBy : this.props.userName
     })
     .then((res)=>console.log(res))
-    Actions.EditStory(); 
+    Actions.ShowStory({storyName : this.state.storyName}); 
   } 
   handleChooseColor(themeId){
     this.setState({selectedThemeId : themeId});
     console.log('themeId', themeId);
   }
-  render() {
+  handleSwitch(switchVal){
+    this.setState({switchVal_passCode : switchVal})
+    if (switchVal){
+      
+      Actions.CreatePasscode({selectedThemeId : this.state.selectedThemeId, storyName : this.state.storyName});
+      this.setState({switchVal_passCode : false})
+    }
+  }
+  render() { 
+    
     return (
     <View style={styles.container}>
       <Header style={styles.headerContainer}>
         <Left>
-          <Button transparent onPress={()=>Actions.pop()}>
+          <Button transparent onPress={()=>Actions.ShowStory()}>
             <Icon name='arrow-back' style={{color : colors.colorPurpleDark}}/>
           </Button>
         </Left>
@@ -58,7 +96,7 @@ export default class CreateStory extends React.Component {
           <Title style={styles.headerTitle}>Create Story</Title>
         </Body>
         <Right>
-          <Button transparent onPress={()=>this.onPublic()}>
+          <Button transparent onPress={()=>this.onPublish()}>
             <Text style={styles.headerRightBtn}>Publish</Text>
           </Button>
         </Right>
@@ -101,20 +139,17 @@ export default class CreateStory extends React.Component {
         <List>
           <ListItem icon>
             <Body style={styles.bodyBottom}>    
-              <TouchableOpacity onPress={()=> Actions.CreatePasscode()}>
-                {this.state.switchVal_passCode?
-                  <Text style={styles.passCode} >{this.state.passCode}</Text> 
-                  :
+                {
+                  this.state.passCode == '' ?
                   <Text style={styles.passCode}> ---- </Text>
-                }
-                
-              </TouchableOpacity>
-              
+                  :
+                  <Text style={styles.passCode} >{this.state.passCode}</Text>                 
+                }              
             </Body>
             <Right style={styles.bodyBottom}>    
               <Switch 
                 value = {this.state.switchVal_passCode} 
-                onValueChange={(switchVal)=>this.setState({switchVal_passCode : switchVal})} 
+                onValueChange={(switchVal)=>this.handleSwitch(switchVal)} 
                 onTintColor={colors.colorPurple}
               />
             </Right>
@@ -201,3 +236,19 @@ const styles = StyleSheet.create({
     color : colors.colorPurpleDark
   }
 });
+
+const mapStateToProps = (state) => ({
+  userId : state.user.userId,
+  userName : state.user.userName,
+  defaultThemeColor : state.user.defaultThemeColor,
+  passCode : state.stories.passCode,
+});
+const mapDispatchToProps = (dispatch) => ({
+  setUser : (userId, userName, defaultThemeColor, isNewWordNotifyEnabled, isNewStoriesNotifyEnabled) => 
+                dispatch(authActions.setUser(userId, userName, defaultThemeColor, isNewWordNotifyEnabled, isNewStoriesNotifyEnabled))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateStory);

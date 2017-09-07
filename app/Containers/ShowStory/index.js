@@ -20,11 +20,20 @@ export default class ShowStory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleText : 'The Elephants and the Monkeys',    
+      storyName : '',    
       writerName : 'jamesmiller94',
-      storyContent : 'Once upon a time there lived a group of elephants in the jungle. They lived near a pond.     The king of monkeys was thinking how to send back elephants. He thought very much and got an idea. When elephants will go to the jungle to eat food, monkeys will tell them that the lions are coming to that pond. The elephants should go away. If the lions see them, they will kill them and eat them. So they should go from there. Next morning the king of monkeys told everything to the elephants. Hearing this they ran away from the pond and',
-      wordText : ''
+      storyContent : '',
+      oneWord : ''
     }
+  }
+
+  componentWillMount(){
+    let storyName = this.props.storyName; 
+    let userId = this.props.userId;   
+    let defaultThemeColor = this.props.defaultThemeColor;
+    
+    this.setState({passCode : this.props.passCode});
+    this.setState({storyName : storyName});
   }
 
   render() {
@@ -40,14 +49,14 @@ export default class ShowStory extends React.Component {
           <Title style={styles.headerTitle}>Story</Title>
         </Body>
         <Right>
-          <Button transparent onPress={()=>Actions.EditStory()}>
+          <Button transparent onPress={()=>Actions.EditStory({storyName : this.state.storyName})}>
             <Text style={styles.headerRightBtn}>Edit</Text>
           </Button>
         </Right>
       </Header>
 
       <View style={styles.titleContainer}>
-        <Text style={styles.titleStyle}>{this.state.titleText}</Text>  
+        <Text style={styles.titleStyle}>{this.state.storyName}</Text>  
         {/* <Text style={styles.byWriter}>{'by ' + this.state.writerName}</Text> */}
       </View>
       
@@ -60,14 +69,25 @@ export default class ShowStory extends React.Component {
         />
       </View>
       <TextInput 
-          //multiline={true} 
+          //multiline={true}
+          ref = {(e)=> {textInput = e}} 
+          autoFocus = {true}
           placeholder = "Enter a word"
           placeholderTextColor = {colors.colorGreenLight}
           borderColor = {colors.colorGreenLight}
           borderRadius = {1}
           style={styles.inputBox}
-          onChangeText={(text) => this.setState({wordText: text})}
-          value={this.state.wordText}
+          value={this.state.oneWord}
+          onChangeText={(oneWord) => {
+            this.setState({oneWord: oneWord});
+          }}
+          onSubmitEditing = {(event)=>{
+            console.log('onewrd', event.nativeEvent.text);
+            let storyContent = this.state.storyContent;
+            storyContent = storyContent + event.nativeEvent.text + ' ';
+            this.setState({storyContent : storyContent});
+            this.setState({oneWord : ''});
+          }}
         >
       </TextInput>
     </View>

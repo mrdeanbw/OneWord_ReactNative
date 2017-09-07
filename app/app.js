@@ -78,14 +78,7 @@ const scenes = Actions.create(
     />
     <Scene key="Setting" hideNavBar = {true} title="Setting" component={Setting} />
     <Scene key="CreateStory" hideNavBar = {true} title="Create Story" component={CreateStory} />
-    <Scene key="CreatePasscode" hideNavBar = {false} title="Create passcode" titleStyle={{color:colors.colorWhite}} component={CreatePasscode} 
-      navigationBarStyle={{backgroundColor : colors.colorPurpleDark }}
-      renderBackButton={()=>
-        <TouchableOpacity onPress={()=> Actions.pop()}>
-          <Icon name="ios-arrow-back" style={styles.navbarIconWhite} />
-        </TouchableOpacity>
-      }
-    />
+    <Scene key="CreatePasscode" hideNavBar = {true} title="Create passcode"  component={CreatePasscode} />
     <Scene key="EditStory" hideNavBar = {true} title="Story" titleStyle={{color:colors.colorBlack}} component={EditStory} />
     <Scene key="ShowStory" hideNavBar = {true} title="Story" titleStyle={{color:colors.colorBlack}} component={ShowStory} />
     <Scene key="ShareStory" hideNavBar = {false} title="Story" titleStyle={{color: colors.colorWhite}} component={ShareStory} 

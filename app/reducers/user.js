@@ -26,7 +26,7 @@ export default function Auth_user(state = initialState, action = {}){
       userName : action.userName,
       defaultThemeColor : action.defaultThemeColor,
       isNewWordNotifyEnabled : action.isNewWordNotifyEnabled,
-      isNewStoriesNotifyEnabled : actio.isNewStoriesNotifyEnabled,
+      isNewStoriesNotifyEnabled : action.isNewStoriesNotifyEnabled,
     }
     default:
       return state;

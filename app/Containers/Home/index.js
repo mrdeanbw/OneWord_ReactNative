@@ -13,19 +13,16 @@ import {
   Alert,
 } from 'react-native';
 import firebase, {firebaseApp, firebaseDb} from '../../Constants/firebase'
-// import * as firebase from 'firebase';
-
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import Carousel from 'react-native-looped-carousel';
 
 // import Carousel from 'react-native-carousel';
-
 //const image
 const mobileExplore = require('../../Assets/images/iphone-jet-black1.png');
 const mobileJoin = require('../../Assets/images/iphone-jet-black2.png');
 const mobileAdd = require('../../Assets/images/iphone-jet-black3.png');
 const { width, height } = Dimensions.get('window');
-export default class ClientInfo extends React.Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
 
@@ -46,13 +43,13 @@ export default class ClientInfo extends React.Component {
   //   if (!firebase.apps.length) {
   //     const firebaseApp = firebase.initializeApp(firebaseConfig);
   //   }
-    firebase.database().ref('Stories/').push({
-      color : 'red',
-      passCode : '6308',
-      storyName : 'Elephant and Monkey',
-      storyContent : ''
-    })
-    .then((res)=>console.log(res))
+    // firebase.database().ref('Stories/').push({
+    //   color : 'red',
+    //   passCode : '6308',
+    //   storyName : 'Elephant and Monkey',
+    //   storyContent : ''
+    // })
+    // .then((res)=>console.log(res))
     
   }
   _onLayoutDidChange = (e) => {

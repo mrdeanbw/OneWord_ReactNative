@@ -19,13 +19,14 @@ import { Container, Header, Content, Tab, Tabs } from 'native-base';
 import { connect } from 'react-redux';
 import StoryList from './ExploreStory';
 import MyWords from './MyWords';
-const FirstRoute = () => <StoryList />
+const FirstRoute = (storiesList) => <StoryList storiesList = {storiesList}/>
 const SecondRoute = () => <MyWords />
  
 class Detail extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      storiesList : {},
       index: 0,
       routes: [
         { key: '1', title: 'Explore Stories' },
@@ -42,14 +43,23 @@ class Detail extends React.Component {
     let userName = this.props.userName;
     console.log('userName from store', userName);
   }
+  componentWillReceiveProps(nextProps){
+    console.log('next props in detail', nextProps);
+    if (this.state.storiesList != nextProps.storiesList){
+      this.setState({storiesList : nextProps.storiesList});
+    }
+  }
   _handleIndexChange = index => this.setState({ index });
   
   _renderHeader = props => <TabBar {...props} />;
   
-    _renderScene = SceneMap({
+  _renderScene = SceneMap({
       '1': FirstRoute,
       '2': SecondRoute,
   });
+
+  FirstRoute = (storiesList) => <StoryList />
+  SecondRoute = () => <MyWords />
   
   render() {
     return (
@@ -97,7 +107,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  userName : state.user.userName
+  userName : state.user.userName,
+  storiesList : state.stories.StoriesList
 });
 const mapDispatchToProps = (dispatch) => ({
   login: (userName) => dispatch(authActions.login(userName)),

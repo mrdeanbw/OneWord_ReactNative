@@ -19,6 +19,7 @@ import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 const GroupImg = require('../../Assets/images/Group.png');
 import firebase, {firebaseApp, firebaseDb} from '../../Constants/firebase'
 import * as authActions from '../../actions/auth';
+import * as storyActions from '../../actions/stories';
 // export default class Login extends React.Component {
 class Login extends React.Component {
   constructor(props) {
@@ -32,24 +33,30 @@ class Login extends React.Component {
   }
 
   _handleExploreStories(){
-    if (this.state.userName){
-      firebase.database().ref('Users/').orderByChild("userName").equalTo(this.state.userName).once("value",snapshot => {
-        let userData = snapshot.val();
+    if (!this.state.userName) return;
+    let userId = null
+    firebase.database().ref('Users/').orderByChild("userName").equalTo(this.state.userName).once("value",snapshot => {
+      userData = snapshot.val();
+      if (userData){
+        console.log("userData already exist", userData);
         var userId = Object.keys(userData)[0];
-        if (userData){
-          console.log("userData already exist", userData);
-        }
-        else{
-          firebase.database().ref('Users/').push({
-            userName : this.state.userName
-          })
-          .then((res)=> console.log('user registerd!', res, res.key))
-        }
-      });
-      this.props.login(this.state.userName, userId);
-      Actions.Detail();
-    }
-    return;
+        this.props.login(this.state.userName, userId);
+      }
+      else{
+        
+        var newRef = firebase.database().ref('Users/').push({
+          userName : this.state.userName
+        })
+        .then((res)=> {
+          console.log('user registerd!', res, res.key);
+          userId = res.key;
+          this.props.login(this.state.userName, userId);
+        })
+      }
+    });      
+    this.props.fetchAllStories();
+    Actions.Detail();
+
   } 
 
   render() {
@@ -146,6 +153,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   login: (userName, userId) => dispatch(authActions.login(userName, userId)),
+  //fetchStories : (userId) => dispatch(storyActions.fetchStories(userId)),
+  fetchAllStories : () => dispatch(storyActions.fetchAllStories()),
 });
 
 export default connect(

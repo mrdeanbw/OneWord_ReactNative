@@ -26,9 +26,9 @@ class Setting extends React.Component {
     this.state = {
       userId : null,
       userName : '',
-      dafaultThemeColor : 'red',
-      switchVal_newWords : false,
-      switchVal_stories : false,
+      defaultThemeColor : '2',
+      isNewWordNotifyEnabled : false,
+      isNewStoriesNotifyEnabled : false,
       selectedThemeId : 0
     }
   }
@@ -36,7 +36,11 @@ class Setting extends React.Component {
   componentWillMount(){
     let userId = this.props.userId;
     let userName = this.props.userName;
-    this.setState({userName : userName, userId : userId});
+    this.setState({
+      userName : userName, 
+      userId : userId
+    });
+    console.log('setting', userId, userName);
   }
   handleSave(){
     // firebase.database().ref('Users/').push({
@@ -55,11 +59,12 @@ class Setting extends React.Component {
       this.state.userName, 
       this.state.defaultThemeColor, 
       this.state.isNewWordNotifyEnabled, 
-      this.state.isNewStoriesNotifyEnabled)
+      this.state.isNewStoriesNotifyEnabled);
     Actions.ShowStory();
   }
   handleChooseColor(themeId){
     this.setState({selectedThemeId : themeId});
+    this.setState({defaultThemeColor : themeId});
     console.log('themeId', themeId);
   }
 
@@ -143,8 +148,8 @@ class Setting extends React.Component {
             </Body>
             <Right>
               <Switch 
-                value = {this.state.switchVal_newWords} 
-                onValueChange={(switchVal)=>this.setState({switchVal_newWords : switchVal})} 
+                value = {this.state.isNewWordNotifyEnabled} 
+                onValueChange={(switchVal)=>this.setState({isNewWordNotifyEnabled : switchVal})} 
                 onTintColor={colors.colorPurple}
               />
             </Right>
@@ -156,8 +161,8 @@ class Setting extends React.Component {
             </Body>
             <Right>
               <Switch 
-                value = {this.state.switchVal_stories} 
-                onValueChange={(switchVal)=>this.setState({switchVal_stories : switchVal})} 
+                value = {this.state.isNewStoriesNotifyEnabled} 
+                onValueChange={(switchVal)=>this.setState({isNewStoriesNotifyEnabled : switchVal})} 
                 onTintColor={colors.colorPurple}
               />
             </Right>
@@ -219,7 +224,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  userName : state.user.userName
+  userName : state.user.userName,
+  userId : state.user.userId
 });
 const mapDispatchToProps = (dispatch) => ({
   setUser : (userId, userName, defaultThemeColor, isNewWordNotifyEnabled, isNewStoriesNotifyEnabled) => 

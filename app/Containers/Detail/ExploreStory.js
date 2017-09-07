@@ -12,10 +12,43 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-
+import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
+import colors, {StoryThemeColor}  from '../../Constants/colors';
 
-export default class StoryList extends React.Component {
+class StoryList extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      storiesList : [],
+    }
+  }
+  componentWillMount(){
+    
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log('next pros in storylist', nextProps);
+    if (this.state.storiesList != nextProps.storiesList){
+      this.setState({storiesList : nextProps.storiesList});
+    }
+  }
+
+  renderStoriesList(storyIndex, index){
+    console.log('storyData', storyIndex, index, this.state.storiesList[storyIndex].storyName);
+    let storyInfo = this.state.storiesList[storyIndex];
+    let storyColor = StoryThemeColor[this.state.storiesList[storyIndex].defaultStoryThemeColor];
+    
+    return (
+    
+      <View style={[styles.storyItemView,{backgroundColor : storyColor}]} key={index}>
+        <TouchableOpacity onPress={() => Actions.ShareStory({storyInfo})}>
+          <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   render() {
     return (
       <ScrollView style={styles.ScrollViewContainer}>
@@ -25,41 +58,12 @@ export default class StoryList extends React.Component {
               <Text style={styles.itemText}>Start a new story...</Text>
             </TouchableOpacity>
           </View>
-          <View style={[styles.storyItemView,{backgroundColor : '#ff6852'}]}>
-            <TouchableOpacity>
-              <Text style={styles.itemText}>Strip Truth or Dare</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.storyItemView,{backgroundColor : '#33a55b'}]}>
-            <TouchableOpacity>
-              <Text style={styles.itemText}>The Elephants and the Monkeys</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.storyItemView,{backgroundColor : '#fc4d61'}]}>
-            <TouchableOpacity>
-              <Text style={styles.itemText}>The Fox and the Wolf</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.storyItemView,{backgroundColor : '#ff6852'}]}>
-            <TouchableOpacity>
-              <Text style={styles.itemText}>Big brother, little sister</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.storyItemView,{backgroundColor : '#FF7D49'}]}>
-            <TouchableOpacity>
-              <Text style={styles.itemText}>Really short story that will make voucry</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.storyItemView,{backgroundColor : '#FF9D3B'}]}>
-            <TouchableOpacity>
-              <Text style={styles.itemText}>What a Lovely Dream</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.storyItemView,{backgroundColor : '#2EC4A3'}]}>
-            <TouchableOpacity>
-              <Text style={styles.itemText}>Strip Truth or Dare</Text>
-            </TouchableOpacity>
-          </View>
+
+          {
+            this.state.storiesList && Object.keys(this.state.storiesList).map((storyIndex, index) => 
+              this.renderStoriesList(storyIndex, index)
+            )
+          }
         </View>
       </ScrollView>
     );
@@ -93,3 +97,16 @@ const styles = StyleSheet.create({
     fontWeight : 'bold'
   }
 });
+
+const mapStateToProps = (state) => ({
+  userName : state.user.userName,
+  storiesList : state.stories.StoriesList
+});
+const mapDispatchToProps = (dispatch) => ({
+  login: (userName) => dispatch(authActions.login(userName)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StoryList);

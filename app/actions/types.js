@@ -11,4 +11,11 @@ export const REG_USER_FAIL = 'reg_user_fail';
 export const REG_STORY_SUCCESS = 'reg_story_success';
 export const REG_STORY_FAIL = 'reg_story_fail';
 
+//Fetch Story
+export const FETCH_STORIES_SUCCESS =  'fetch_stories_success';
+export const FETCH_STORIES_FAIL =  'fetch_stories_fail';
+//Set passcode
+export const SET_PASSCODE =  'set_passcode';
+
+
 
