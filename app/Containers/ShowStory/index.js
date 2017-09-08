@@ -31,22 +31,26 @@ class ShowStory extends React.Component {
 
   componentWillMount(){
     let _StoriesList = this.props.StoriesList;
-    let _storyName = this.props.storyName; 
+    //let _storyName = this.props.storyName; 
     let _userId = this.props.userId;   
     let _defaultThemeColor = this.props.defaultThemeColor;
     let _selectedStoryId = this.props.selectedStoryId;
-    
+    console.log('showstory', this.props.selectedStoryId, this.props.StoriesList);
+    console.log('showstoryName', this.props.StoriesList[_selectedStoryId].storyName,this.props.StoriesList[_selectedStoryId].storyContent);
     this.setState({storyName : this.props.StoriesList[_selectedStoryId].storyName});
     this.setState({storyContent : this.props.StoriesList[_selectedStoryId].storyContent});
 
-    
-    
     this.setState({passCode : this.props.passCode});
     //this.setState({storyName : storyName});
     this.setState({selectedStoryId : _selectedStoryId});
   }
-
-
+  componentWillReceiveProps(nextProps){
+    console.log('nextProps', nextProps);
+    // if (this.state.storyName != nextProps.storyName){
+    //   this.setState({storyName : nextProps.storyName});
+    // }
+  }
+  
   render() {
     return (
     <View style={styles.container}>

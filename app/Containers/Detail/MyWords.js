@@ -16,7 +16,7 @@ import {
 import { connect } from 'react-redux';
 import { LinearGradient } from 'expo';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
-
+import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import colors, {StoryThemeColorLight, StoryThemeColorDark}  from '../../Constants/colors';
 import * as storyActions from '../../actions/stories';
 
@@ -25,23 +25,62 @@ class MyWords extends React.Component {
     super(props);
     this.state = {
       storiesList : [],
+      AllStoriesList : [],
+      userName : ''
     }
   }
 
   componentWillMount() {
-    if (this.state.storiesList != this.props.storiesList){
-      this.setState({storiesList : this.props.storiesList});
+    console.log('next ', this.props.AllStoriesList);
+    if (this.state.AllStoriesList != this.props.AllStoriesList){
+      this.setState({AllStoriesList : this.props.AllStoriesList});
     }
+    this.setState({userName : this.props.userName});
+    
+    console.log('next username', this.props.userName);
+
+
+    let _storiesListObj = {};
+    let _filteredIdArray = Object.keys(this.props.AllStoriesList).filter((storyId)=>{
+
+      return this.props.AllStoriesList[storyId].createdBy == this.props.userName
+    })
+    _filteredIdArray.forEach((id)=>{
+      let key = id;
+      _storiesListObj[key] = this.props.AllStoriesList[id];
+    })
+    this.setState({storiesList : _storiesListObj});
+
   }
   componentWillReceiveProps(nextProps) {
-    if (this.state.storiesList != nextProps.storiesList){
-      this.setState({storiesList : nextProps.storiesList});
+    if (this.state.AllStoriesList != nextProps.AllStoriesList){
+      this.setState({AllStoriesList : nextProps.AllStoriesList});
     }
+    this.setState({userName : nextProps.userName});
+    console.log('next username1', nextProps.userName);
   }
 
   handleSelectStory(storyInfo, selectedStoryId){
     this.props.updateSelectedStoryId(selectedStoryId);
     Actions.ShareStory({storyInfo})
+  }
+  handleSelectLockedStory(storyInfo, selectedStoryId){
+    this.props.updateSelectedStoryId(selectedStoryId);
+    Actions.ShowLockedStory({storyInfo});
+  }
+
+  filterStoriesByWriter(){
+    
+    let _storiesListObj = {};
+    let _filteredIdArray = Object.keys(this.state.AllStoriesList).filter((storyId)=>{
+
+      return this.state.AllStoriesList[storyId].createdBy == this.props.userName
+    })
+    _filteredIdArray.forEach((id)=>{
+      let key = id;
+      _storiesListObj[key] = this.state.AllStoriesList[id];
+    })
+    this.setState({storiesList : _storiesListObj});
   }
 
   renderStoriesList(storyIndex, index){
@@ -64,16 +103,27 @@ class MyWords extends React.Component {
         end = {{x : 1, y : 1}}
         key = {index}
       >
-        <View style={[styles.storyItemView,{}]} key={index}>
-          <TouchableOpacity onPress={() => this.handleSelectStory(storyInfo, storyIndex)}>
-            <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
-          </TouchableOpacity>
-        </View>
+        {
+          this.state.storiesList[storyIndex].passCode == '' ?
+            <View style={[styles.storyItemView,{}]} key={index}>
+              <TouchableOpacity onPress={() => this.handleSelectStory(storyInfo, storyIndex)}>
+                  <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
+              </TouchableOpacity>
+            </View>
+            :
+            <View style={[styles.storyItemView,{}]} key={index}>
+              <TouchableOpacity onPress={() => this.handleSelectLockedStory(storyInfo, storyIndex)}>
+                  <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
+              </TouchableOpacity>
+              <Icon name='lock' style={styles.lockIon}/>
+            </View>
+        }
       </LinearGradient>
     )
   }
 
   render() {
+    //this.filterStoriesByWriter();
     return (
       <ScrollView style={styles.ScrollViewContainer}>
         <View style={styles.container}>
@@ -134,12 +184,23 @@ const styles = StyleSheet.create({
     color : '#ffffff',
     fontWeight : 'bold',
     backgroundColor : 'transparent'
+  },
+  lockIon:{
+    fontSize : 20, 
+    position : 'absolute',
+    right : 10,
+    top : 10,
+    //justifyContent : 'flex-end', 
+    color: '#fefefe',
+    //alignItems : 'flex-start',
+    //alignContent : 'flex-start',
+    backgroundColor : 'transparent'
   }
 });
 
 const mapStateToProps = (state) => ({
   userName : state.user.userName,
-  storiesList : state.stories.StoriesList
+  AllStoriesList : state.stories.StoriesList
 });
 const mapDispatchToProps = (dispatch) => ({
   login: (userName) => dispatch(authActions.login(userName)),

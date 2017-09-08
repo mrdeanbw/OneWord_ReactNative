@@ -57,6 +57,10 @@ class Search extends React.Component {
     this.props.updateSelectedStoryId(selectedStoryId);
     Actions.ShareStory({storyInfo})
   }
+  handleSelectLockedStory(storyInfo, selectedStoryId){
+    this.props.updateSelectedStoryId(selectedStoryId);
+    Actions.ShowLockedStory({storyInfo});
+  }
 
   renderStoriesList(storyIndex, index){
     let storyInfo = this.state.storiesList[storyIndex];
@@ -78,11 +82,21 @@ class Search extends React.Component {
         end = {{x : 1, y : 1}}
         key = {index}
       >
-        <View style={[styles.storyItemView,{}]} key={index}>
-          <TouchableOpacity onPress={() => this.handleSelectStory(storyInfo, storyIndex)}>
-            <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
-          </TouchableOpacity>
-        </View>
+        {
+          this.state.storiesList[storyIndex].passCode == '' ?
+            <View style={[styles.storyItemView,{}]} key={index}>
+              <TouchableOpacity onPress={() => this.handleSelectStory(storyInfo, storyIndex)}>
+                  <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
+              </TouchableOpacity>
+            </View>
+            :
+            <View style={[styles.storyItemView,{}]} key={index}>
+              <TouchableOpacity onPress={() => this.handleSelectLockedStory(storyInfo, storyIndex)}>
+                  <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
+              </TouchableOpacity>
+              <Icon name='lock' style={styles.lockIon}/>
+            </View>
+          }
       </LinearGradient>
     )
   }
@@ -168,7 +182,19 @@ const styles = StyleSheet.create({
     color : '#ffffff',
     fontWeight : 'bold',
     backgroundColor : 'transparent'
+  },
+  lockIon:{
+    fontSize : 20, 
+    position : 'absolute',
+    right : 10,
+    top : 10,
+    //justifyContent : 'flex-end', 
+    color: '#fefefe',
+    //alignItems : 'flex-start',
+    //alignContent : 'flex-start',
+    backgroundColor : 'transparent'
   }
+  
 });
 
 const mapStateToProps = (state) => ({

@@ -12,20 +12,21 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-//import Button from 'apsl-react-native-button';
+
 import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import { Form, Item, Label, List, ListItem, Input, Switch, Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 //Const images, colors
 import colors, {StoryThemeColorLight, StoryThemeColorDark}  from '../../Constants/colors';;
 
-class ShareStory extends React.Component {
+class ShowLockedStory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       storyName : '',    
       createdBy : '',
-      storyContent : ''
+      storyContent : '',
+      storyThemeColor : 0,
     }
   }
 
@@ -44,9 +45,13 @@ class ShareStory extends React.Component {
   handleJoinStory(){
     Actions.ShowStory({storyInfo : this.props.storyInfo});
   }
+  onEnterPasscode(){
+    Actions.CheckPasscode({storyInfo : this.props.storyInfo});
+  }
   render() {
     return (
       <View style={[styles.container, {backgroundColor : StoryThemeColorLight[this.state.storyThemeColor]}]}>
+
         <Header style={styles.headerContainer}>
           <Left>
             <Button transparent onPress={()=>Actions.pop()}>
@@ -57,9 +62,6 @@ class ShareStory extends React.Component {
             <Title style={styles.headerTitle}>Story</Title>
           </Body>
           <Right>
-            <TouchableOpacity onPress={()=>Actions.Detail()}>
-              <Text style={styles.navBarButtonWhite}>Share</Text>
-            </TouchableOpacity>
           </Right>
         </Header>
 
@@ -75,8 +77,8 @@ class ShareStory extends React.Component {
             style={styles.storyContent}
             value = {this.state.storyContent}
           />
-          <Button style={[styles.JoinButton, {backgroundColor : StoryThemeColorLight[this.state.storyThemeColor]}]} onPress={()=>this.handleJoinStory()}>
-            <Text style={styles.buttonText}>Join the Story</Text>
+          <Button style={[styles.JoinButton, {backgroundColor : StoryThemeColorLight[this.state.storyThemeColor]}]} onPress={()=>this.onEnterPasscode()}>
+            <Text style={styles.buttonText}>Enter a Passcode</Text>
           </Button>
         </View>
       </View>
@@ -87,8 +89,8 @@ class ShareStory extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.colorGreen,
-    //marginTop : 64
+    //backgroundColor: colors.colorGreen,
+    
   },
   headerContainer:{
     backgroundColor : 'transparent',
@@ -100,15 +102,14 @@ const styles = StyleSheet.create({
   formContainer:{
     marginTop : 20
   },
-  headerTitle:{
-    color : colors.colorWhite
-  },
   storyContentContainer:{
     flex : 1,
     marginTop : 30,
     marginHorizontal : 20,
     backgroundColor : colors.colorWhite,
-    borderRadius : 10  
+    borderRadius : 10  ,
+    // opacity : .5,
+    // borderWidth : 1
   },  
   ListItem:{
     borderWidth : 0,
@@ -141,11 +142,11 @@ const styles = StyleSheet.create({
     fontSize : 16,
     lineHeight : 30,
     marginHorizontal : 10,
-    marginTop : 10
+    marginTop : 10,
+    opacity : 0.08,
   },
-  navBarButtonWhite:{
-    color : colors.colorWhite,
-    fontSize : 16
+  headerTitle:{
+    color : colors.colorWhite
   },
   buttonStyle:{
     backgroundColor : colors.colorGreen,
@@ -184,4 +185,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ShareStory);
+)(ShowLockedStory);

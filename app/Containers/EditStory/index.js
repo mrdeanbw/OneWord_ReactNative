@@ -120,16 +120,19 @@ class EditStory extends React.Component {
               <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPink, opacity : this.state.selectedThemeId == 0 ? 1.0 : .3}]}/>              
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.handleChooseColor(1)} >
-              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorNavy, opacity : this.state.selectedThemeId == 1 ? 1.0 : .3}]}/>              
+              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPink, opacity : this.state.selectedThemeId == 1 ? 1.0 : .3}]}/>              
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.handleChooseColor(2)} >
-              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPurple, opacity : this.state.selectedThemeId == 2 ? 1.0 : .3}]}/>
+              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorNavy, opacity : this.state.selectedThemeId == 2 ? 1.0 : .3}]}/>              
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.handleChooseColor(3)} >
-              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorBlue, opacity : this.state.selectedThemeId == 3 ? 1.0 : .3}]}/>
+              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPurple, opacity : this.state.selectedThemeId == 3 ? 1.0 : .3}]}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.handleChooseColor(4)} >
-              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorGreen, opacity : this.state.selectedThemeId == 4 ? 1.0 : .3}]}/>
+              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorBlue, opacity : this.state.selectedThemeId == 4 ? 1.0 : .3}]}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>this.handleChooseColor(5)} >
+              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorGreen, opacity : this.state.selectedThemeId == 5 ? 1.0 : .3}]}/>
             </TouchableOpacity>
           </ListItem>
         </List>

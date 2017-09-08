@@ -35,10 +35,13 @@ import Search from './Containers/Search';
 import Setting from './Containers/Setting';
 import CreateStory from './Containers/CreateStory';
 import CreatePasscode from './Containers/CreatePasscode';
+import CheckPasscode from './Containers/CheckPasscode';
 import EditStory from './Containers/EditStory';
 import ShowStory from './Containers/ShowStory';
+import ShowLockedStory from './Containers/ShowLockedStory';
 import ShareStory from './Containers/ShareStory';
 import colors from './Constants/colors'
+
 
 let renderBackButton = function(){
   return(
@@ -68,9 +71,12 @@ const scenes = Actions.create(
     <Scene key="Setting" hideNavBar = {true} title="Setting" component={Setting} />
     <Scene key="CreateStory" hideNavBar = {true} title="Create Story" component={CreateStory} />
     <Scene key="CreatePasscode" hideNavBar = {true} title="Create passcode"  component={CreatePasscode} />
-    <Scene key="EditStory" hideNavBar = {true} title="Story" titleStyle={{color:colors.colorBlack}} component={EditStory} />
-    <Scene key="ShowStory" hideNavBar = {true} title="Story" titleStyle={{color:colors.colorBlack}} component={ShowStory} />
-    <Scene key="ShareStory" hideNavBar = {false} title="Story" titleStyle={{color: colors.colorWhite}} component={ShareStory} 
+    <Scene key="CheckPasscode" hideNavBar = {true} component={CheckPasscode} />
+    
+    <Scene key="EditStory" hideNavBar = {true} title="Story" component={EditStory} />
+    <Scene key="ShowStory" hideNavBar = {true} title="Story" component={ShowStory} />
+    <Scene key="ShowLockedStory" hideNavBar = {true} title="Story" component={ShowLockedStory} />
+    <Scene key="ShareStory" hideNavBar = {true} title="Story" titleStyle={{color: colors.colorWhite}} component={ShareStory} 
       navigationBarStyle={{backgroundColor : colors.colorGreen, borderBottomWidth: 0  }}
       renderBackButton={()=>
         <TouchableOpacity onPress={()=> Actions.pop()}>

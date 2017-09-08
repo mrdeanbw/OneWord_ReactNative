@@ -58,18 +58,22 @@ class CreateStory extends React.Component {
     if (!this.state.storyName) {
       return Alert.alert('Please fill out Story Name');
     }
+    if ( !(this.state.selectedThemeId >= 0) ) {
+      return Alert.alert('Please Choose Color');
+    }
     firebase.database().ref('Stories/').push({
-      defaultStoryThemeColor : this.state.storyThemeColor,
+      defaultStoryThemeColor : this.state.selectedThemeId,
       passCode : this.state.passCode,
       storyName : this.state.storyName,
       storyContent : '',
       createdBy : this.props.userName
     })
     .then((res)=>{
-      console.log('res', res, res.key);
+      console.log('create story', res, res.key);
       this.props.updateSelectedStoryId(res.key);
+      Actions.ShowStory({storyName : this.state.storyName});
     })
-    Actions.ShowStory({storyName : this.state.storyName}); 
+    
   } 
   handleChooseColor(themeId){
     this.setState({selectedThemeId : themeId});
@@ -114,16 +118,19 @@ class CreateStory extends React.Component {
               <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPink, opacity : this.state.selectedThemeId == 0 ? 1.0 : .3}]}/>              
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.handleChooseColor(1)} >
-              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorNavy, opacity : this.state.selectedThemeId == 1 ? 1.0 : .3}]}/>              
+              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPink, opacity : this.state.selectedThemeId == 1 ? 1.0 : .3}]}/>              
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.handleChooseColor(2)} >
-              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPurple, opacity : this.state.selectedThemeId == 2 ? 1.0 : .3}]}/>
+              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorNavy, opacity : this.state.selectedThemeId == 2 ? 1.0 : .3}]}/>              
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.handleChooseColor(3)} >
-              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorBlue, opacity : this.state.selectedThemeId == 3 ? 1.0 : .3}]}/>
+              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPurple, opacity : this.state.selectedThemeId == 3 ? 1.0 : .3}]}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>this.handleChooseColor(4)} >
-              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorGreen, opacity : this.state.selectedThemeId == 4 ? 1.0 : .3}]}/>
+              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorBlue, opacity : this.state.selectedThemeId == 4 ? 1.0 : .3}]}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>this.handleChooseColor(5)} >
+              <View style={[styles.colorBoxItem, {backgroundColor:colors.colorGreen, opacity : this.state.selectedThemeId == 5 ? 1.0 : .3}]}/>
             </TouchableOpacity>
           </ListItem>
         </List>

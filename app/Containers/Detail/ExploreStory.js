@@ -13,6 +13,7 @@ import {
   Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import colors, {StoryThemeColorLight, StoryThemeColorDark}  from '../../Constants/colors';
 import * as storyActions from '../../actions/stories';
@@ -44,6 +45,10 @@ class StoryList extends React.Component {
     this.props.updateSelectedStoryId(selectedStoryId);
     Actions.ShareStory({storyInfo})
   }
+  handleSelectLockedStory(storyInfo, selectedStoryId){
+    this.props.updateSelectedStoryId(selectedStoryId);
+    Actions.ShowLockedStory({storyInfo});
+  }
   renderStoriesList(storyIndex, index){
     let storyInfo = this.state.storiesList[storyIndex];
     let storyColorLight = StoryThemeColorLight[this.state.storiesList[storyIndex].defaultStoryThemeColor];
@@ -63,11 +68,21 @@ class StoryList extends React.Component {
         start = {{x : 0, y : 1 }}
         end = {{x : 1, y : 1}}
       >
-        <View style={[styles.storyItemView,{}]} key={index}>
-          <TouchableOpacity onPress={() => this.handleSelectStory(storyInfo, storyIndex)}>
-            <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
-          </TouchableOpacity>
-        </View>
+         {
+            this.state.storiesList[storyIndex].passCode == '' ?
+            <View style={[styles.storyItemView,{}]} key={index}>
+              <TouchableOpacity onPress={() => this.handleSelectStory(storyInfo, storyIndex)}>
+                  <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
+              </TouchableOpacity>
+            </View>
+            :
+            <View style={[styles.storyItemView,{}]} key={index}>
+              <TouchableOpacity onPress={() => this.handleSelectLockedStory(storyInfo, storyIndex)}>
+                  <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
+              </TouchableOpacity>
+              <Icon name='lock' style={styles.lockIon}/>
+            </View>
+          }
       </LinearGradient>
     )
   }
@@ -133,7 +148,16 @@ const styles = StyleSheet.create({
     color : '#ffffff',
     backgroundColor : 'transparent',
     fontWeight : 'bold'
+  },
+  lockIon:{
+    fontSize : 20, 
+    position : 'absolute',
+    right : 10,
+    top : 10,
+    color: '#fefefe',
+    backgroundColor : 'transparent'
   }
+  
 });
 
 const mapStateToProps = (state) => ({
