@@ -30,7 +30,6 @@ import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'nativ
 import store from './store';
 import Home from './Containers/Home';
 import Login from './Containers/Login';
-import StoryList from './Containers/StoryList';
 import Detail from './Containers/Detail';
 import Search from './Containers/Search';
 import Setting from './Containers/Setting';
@@ -53,22 +52,12 @@ const scenes = Actions.create(
     <Scene key="Home" hideNavBar component={ Home } />
     <Scene key="Detail" 
       component={ Detail } 
-      hideNavBar = {false}
+      hideNavBar = {true}
       title = "One Word at a Time"  
-      renderBackButton={()=>
-        <TouchableOpacity onPress={()=> Actions.Search()}>
-          <Icon name="ios-search" style={styles.navbarIcon} />
-        </TouchableOpacity>
-      }
-      renderRightButton = {()=>
-        <TouchableOpacity onPress={()=>Actions.Setting()}>
-          <Icon name="ios-settings-outline" style={styles.navbarIcon} />
-        </TouchableOpacity>
-      }
     />
    
     <Scene key="Login" hideNavBar component={ Login } />   
-    <Scene key="StoryList" component={ StoryList } />
+
     <Scene key="Search" hideNavBar = {false} title="Search" component={Search} navigationBarStyle={{ borderBottomWidth: 0 }} 
       renderBackButton={()=>
         <TouchableOpacity onPress={()=> Actions.pop()}>

@@ -16,6 +16,7 @@ export const FETCH_STORIES_SUCCESS =  'fetch_stories_success';
 export const FETCH_STORIES_FAIL =  'fetch_stories_fail';
 //Set passcode
 export const SET_PASSCODE =  'set_passcode';
+export const UPDATE_SELECTED_STORYID = 'update_selected_storyId'
 
 
 

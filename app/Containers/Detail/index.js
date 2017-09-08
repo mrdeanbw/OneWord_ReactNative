@@ -13,12 +13,16 @@ import {
   Alert,
 } from 'react-native';
 //import { TabViewAnimated, TabViewPagerScroll, TabBar, SceneMap } from 'react-native-tab-view';
-import { TabViewAnimated, TabViewPagerScroll, TabBar, SceneMap } from '../../Components/TabView';
-import { Container, Header, Content, Tab, Tabs } from 'native-base';
 
+import { Content, Tab, Tabs, Form, Item, Label, List, ListItem, Input, Switch, Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
+import { TabViewAnimated, TabViewPagerScroll, TabBar, SceneMap } from '../../Components/TabView';
+//import { Container, Header, Content, Tab, Tabs } from 'native-base';
 import { connect } from 'react-redux';
+import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import StoryList from './ExploreStory';
 import MyWords from './MyWords';
+import colors from '../../Constants/colors';
+
 const FirstRoute = (storiesList) => <StoryList storiesList = {storiesList}/>
 const SecondRoute = () => <MyWords />
  
@@ -44,10 +48,6 @@ class Detail extends React.Component {
     console.log('userName from store', userName);
   }
   componentWillReceiveProps(nextProps){
-    console.log('next props in detail', nextProps);
-    if (this.state.storiesList != nextProps.storiesList){
-      this.setState({storiesList : nextProps.storiesList});
-    }
   }
   _handleIndexChange = index => this.setState({ index });
   
@@ -58,13 +58,34 @@ class Detail extends React.Component {
       '2': SecondRoute,
   });
 
-  FirstRoute = (storiesList) => <StoryList />
+  FirstRoute = () => <StoryList />
   SecondRoute = () => <MyWords />
   
+  onSetting(){
+    Actions.Setting();
+  }
+  onSearch(){
+    Actions.Search();
+  }
   render() {
     return (
       <Container>
-        <Header hasTabs />
+        <Header style={styles.headerContainer}>
+          <Left>
+            <Button transparent onPress={()=>this.onSearch()}>
+              <Icon name="ios-search" style={styles.navbarIcon} />
+            </Button>
+          </Left>
+          <Body style={{flex : 2}}> 
+            <Title style={styles.headerTitle}>One Word at a Time</Title>
+          </Body>
+          <Right>
+            <Button transparent onPress={()=>this.onSetting()}>
+              <Icon name="ios-settings-outline" style={styles.navbarIcon} />
+            </Button>
+          </Right>
+      </Header>
+
         <Tabs initialPage={0} tabBarPosition = 'top' tabBarUnderlineStyle={{backgroundColor : '#915DF4'}}>
           <Tab textStyle={{color : '#915DF4'}} heading="Explore Stories" >
             <StoryList />
@@ -86,6 +107,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  headerContainer:{
+    borderBottomWidth : 0
+  },
   storyItemView:{
     flex : 1,
     flexDirection: 'row',
@@ -103,7 +127,11 @@ const styles = StyleSheet.create({
     fontSize : 22,
     color : '#ffffff',
     fontWeight : 'bold'
-  }
+  },
+  navbarIcon:{
+    fontSize: 30, 
+    color: colors.colorPurpleDark
+  },
 });
 
 const mapStateToProps = (state) => ({

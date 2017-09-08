@@ -57,7 +57,11 @@ class CreatePasscode extends React.Component {
     //   storyName : this.props.storyName
     // });
     this.props.setPasscode(passCode);
-    Actions.CreateStory({passCode : passCode});
+    //Actions.CreateStory({passCode : passCode});
+    Actions.pop();
+    setTimeout(()=> {
+      Actions.refresh({passCode : passCode});
+    }, 0);
 
   }  
   render() {

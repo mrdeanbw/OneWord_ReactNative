@@ -20,11 +20,19 @@ export default {
 //   '#5CC2FF',
 //   '#2CCEB8',
 // ]
-export const StoryThemeColor = [
+export const StoryThemeColorDark = [
   '#FFA533',
   '#FF5D57',
   '#FCA954',
   '#728BFF',
   '#727BFF',
   '#359C46',
+]
+export const StoryThemeColorLight = [
+  '#F9ED5F',
+  '#FF9D3B',
+  '#FD65AF',
+  '#B85CFF',
+  '#5CC2FF',
+  '#2CCEB8',
 ]

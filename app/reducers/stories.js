@@ -8,6 +8,7 @@ const initialState = {
   email : '',
   password : '',
   passCode : '',
+  selectedStoryId : '',
 };
 
 export default function story(state = initialState, action = {}){
@@ -28,6 +29,11 @@ export default function story(state = initialState, action = {}){
         ...state,
         passCode : action.passCode
       }    
+    case types.UPDATE_SELECTED_STORYID:
+      return {
+        ...state,
+        selectedStoryId : action.selectedStoryId
+      }
     default:
       return state;
   }

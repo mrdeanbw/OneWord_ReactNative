@@ -37,6 +37,9 @@ export const setPasscode = (passCode) => async (dispatch, store) => {
   dispatch({type : types.SET_PASSCODE, passCode : passCode})
 }
 
+export const updateSelectedStoryId = (storyId) => async (dispatch, store) => {
+  dispatch({type : types.UPDATE_SELECTED_STORYID, selectedStoryId : storyId})
+}
 
 
 

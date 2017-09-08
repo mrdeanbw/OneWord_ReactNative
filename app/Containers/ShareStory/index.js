@@ -13,41 +13,55 @@ import {
   Alert,
 } from 'react-native';
 //import Button from 'apsl-react-native-button';
+import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import {  Button, Form, Item, Input, Label, List, ListItem, Icon, Body, Right, Switch } from 'native-base';
 //Const images, colors
 import colors from '../../Constants/colors'
 
-export default class ShareStory extends React.Component {
+class ShareStory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      titleText : 'The Elephants and the Monkeys',    
-      writerName : 'jamesmiller94',
-      storyContent : 'Once upon a time there lived a group of elephants in the jungle. They lived near a pond.     The king of monkeys was thinking how to send back elephants. He thought very much and got an idea. When elephants will go to the jungle to eat food, monkeys will tell them that the lions are coming to that pond. The elephants should go away. If the lions see them, they will kill them and eat them. So they should go from there. Next morning the king of monkeys told everything to the elephants. Hearing this they ran away from the pond and'
+      storyName : '',    
+      createdBy : '',
+      storyContent : ''
     }
   }
 
+  componentWillMount(){
+    let _storyName = this.props.storyInfo.storyName; 
+    let _createBy = this.props.storyInfo.createdBy;
+    let _storyContent = this.props.storyInfo.storyContent;
+    //let selectedStoryId = this.props.selectedStoryId;
+    
+    this.setState({storyName : _storyName});
+    this.setState({createdBy : _createBy});
+    this.setState({storyContent : _storyContent});
+  }
+  handleJoinStory(){
+    Actions.ShowStory({storyInfo : this.props.storyInfo});
+  }
   render() {
     return (
-    <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleStyle}>{this.state.titleText}</Text>  
-        <Text style={styles.byWriter}>{'by ' + this.state.writerName}</Text>
+      <View style={styles.container}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.titleStyle}>{this.state.storyName}</Text>  
+          <Text style={styles.byWriter}>{'by ' + this.state.createdBy}</Text>
+        </View>
+        
+        <View style={styles.storyContentContainer}>
+          <TextInput 
+            multiline={true} 
+            editable={false}
+            style={styles.storyContent}
+            value = {this.state.storyContent}
+          />
+          <Button style={styles.JoinButton} onPress={()=>this.handleJoinStory()}>
+            <Text style={styles.buttonText}>Join the Story</Text>
+          </Button>
+        </View>
       </View>
-      
-      <View style={styles.storyContentContainer}>
-        <TextInput 
-          multiline={true} 
-          editable={false}
-          style={styles.storyContent}
-          value = {this.state.storyContent}
-        />
-        <Button style={styles.JoinButton} onPress={()=>Actions.ShowStory()}>
-          <Text style={styles.buttonText}>Join the Story</Text>
-        </Button>
-      </View>
-    </View>
     );
   }
 }
@@ -125,3 +139,20 @@ const styles = StyleSheet.create({
     fontSize : 20
   }
 });
+
+
+const mapStateToProps = (state) => ({
+  userId : state.user.userId,
+  userName : state.user.userName,
+  defaultThemeColor : state.user.defaultThemeColor,
+  passCode : state.stories.passCode,
+  selectedStoryId : state.stories.selectedStoryId,
+  StoriesList : state.stories.StoriesList,
+});
+const mapDispatchToProps = (dispatch) => ({
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ShareStory);

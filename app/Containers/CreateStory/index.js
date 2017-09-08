@@ -18,6 +18,7 @@ import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import { Form, Item, Label, List, ListItem, Input, Switch, Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import firebase, {firebaseApp, firebaseDb} from '../../Constants/firebase';
 import * as authActions from '../../actions/auth';
+import * as storyActions from '../../actions/stories';
 //Const images, colors
 import colors from '../../Constants/colors';
 
@@ -38,14 +39,11 @@ class CreateStory extends React.Component {
     let userName = this.props.userName;
     let defaultThemeColor = this.props.defaultThemeColor;
     console.log('createstory', userId, userName, defaultThemeColor);
-
-    this.setState({passCode : this.props.passCode});
-    //this.setState({selectedThemeId : this.props.selectedThemeId});
-    //this.setState({storyName : this.props.storyName});
+    //this.setState({passCode : this.props.passCode});
   }
 
   componentDidMount(){
-    this.setState({passCode : this.props.passCode});
+    //this.setState({passCode : this.props.passCode});
     this.setState({selectedThemeId : this.props.selectedThemeId});
     this.setState({storyName : this.props.storyName});
   }
@@ -67,7 +65,10 @@ class CreateStory extends React.Component {
       storyContent : '',
       createdBy : this.props.userName
     })
-    .then((res)=>console.log(res))
+    .then((res)=>{
+      console.log('res', res, res.key);
+      this.props.updateSelectedStoryId(res.key);
+    })
     Actions.ShowStory({storyName : this.state.storyName}); 
   } 
   handleChooseColor(themeId){
@@ -83,12 +84,11 @@ class CreateStory extends React.Component {
     }
   }
   render() { 
-    
     return (
     <View style={styles.container}>
       <Header style={styles.headerContainer}>
         <Left>
-          <Button transparent onPress={()=>Actions.ShowStory()}>
+          <Button transparent onPress={()=>Actions.pop()}>
             <Icon name='arrow-back' style={{color : colors.colorPurpleDark}}/>
           </Button>
         </Left>
@@ -245,7 +245,8 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   setUser : (userId, userName, defaultThemeColor, isNewWordNotifyEnabled, isNewStoriesNotifyEnabled) => 
-                dispatch(authActions.setUser(userId, userName, defaultThemeColor, isNewWordNotifyEnabled, isNewStoriesNotifyEnabled))
+                dispatch(authActions.setUser(userId, userName, defaultThemeColor, isNewWordNotifyEnabled, isNewStoriesNotifyEnabled)),
+  updateSelectedStoryId : (storyId) => dispatch(storyActions.updateSelectedStoryId(storyId)),
 });
 
 export default connect(

@@ -12,29 +12,40 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import colors from '../../Constants/colors';
+import * as storyActions from '../../actions/stories';
 
-export default class ShowStory extends React.Component {
+class ShowStory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       storyName : '',    
-      writerName : 'jamesmiller94',
+      writerName : '',
       storyContent : '',
       oneWord : ''
     }
   }
 
   componentWillMount(){
-    let storyName = this.props.storyName; 
-    let userId = this.props.userId;   
-    let defaultThemeColor = this.props.defaultThemeColor;
+    let _StoriesList = this.props.StoriesList;
+    let _storyName = this.props.storyName; 
+    let _userId = this.props.userId;   
+    let _defaultThemeColor = this.props.defaultThemeColor;
+    let _selectedStoryId = this.props.selectedStoryId;
+    
+    this.setState({storyName : this.props.StoriesList[_selectedStoryId].storyName});
+    this.setState({storyContent : this.props.StoriesList[_selectedStoryId].storyContent});
+
+    
     
     this.setState({passCode : this.props.passCode});
-    this.setState({storyName : storyName});
+    //this.setState({storyName : storyName});
+    this.setState({selectedStoryId : _selectedStoryId});
   }
+
 
   render() {
     return (
@@ -57,7 +68,6 @@ export default class ShowStory extends React.Component {
 
       <View style={styles.titleContainer}>
         <Text style={styles.titleStyle}>{this.state.storyName}</Text>  
-        {/* <Text style={styles.byWriter}>{'by ' + this.state.writerName}</Text> */}
       </View>
       
       <View style={styles.storyContentContainer}>
@@ -69,25 +79,24 @@ export default class ShowStory extends React.Component {
         />
       </View>
       <TextInput 
-          //multiline={true}
-          ref = {(e)=> {textInput = e}} 
-          autoFocus = {true}
-          placeholder = "Enter a word"
-          placeholderTextColor = {colors.colorGreenLight}
-          borderColor = {colors.colorGreenLight}
-          borderRadius = {1}
-          style={styles.inputBox}
-          value={this.state.oneWord}
-          onChangeText={(oneWord) => {
-            this.setState({oneWord: oneWord});
-          }}
-          onSubmitEditing = {(event)=>{
-            console.log('onewrd', event.nativeEvent.text);
-            let storyContent = this.state.storyContent;
-            storyContent = storyContent + event.nativeEvent.text + ' ';
-            this.setState({storyContent : storyContent});
-            this.setState({oneWord : ''});
-          }}
+        ref = {(e)=> {textInput = e}} 
+        autoFocus = {true}
+        placeholder = "Enter a word"
+        placeholderTextColor = {colors.colorGreenLight}
+        borderColor = {colors.colorGreenLight}
+        borderRadius = {1}
+        style={styles.inputBox}
+        value={this.state.oneWord}
+        onChangeText={(oneWord) => {
+          this.setState({oneWord: oneWord});
+        }}
+        onSubmitEditing = {(event)=>{
+          console.log('onewrd', event.nativeEvent.text);
+          let storyContent = this.state.storyContent;
+          storyContent = storyContent + event.nativeEvent.text + ' ';
+          this.setState({storyContent : storyContent});
+          this.setState({oneWord : ''});
+        }}
         >
       </TextInput>
     </View>
@@ -174,3 +183,19 @@ const styles = StyleSheet.create({
     padding : 8 
   }
 });
+
+const mapStateToProps = (state) => ({
+  userId : state.user.userId,
+  userName : state.user.userName,
+  defaultThemeColor : state.user.defaultThemeColor,
+  passCode : state.stories.passCode,
+  selectedStoryId : state.stories.selectedStoryId,
+  StoriesList : state.stories.StoriesList,
+});
+const mapDispatchToProps = (dispatch) => ({
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ShowStory);

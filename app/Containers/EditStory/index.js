@@ -13,30 +13,77 @@ import {
   Alert,
 } from 'react-native';
 
+import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import { Form, Item, Label, List, ListItem, Input, Switch, Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 //Const images, colors
 import colors from '../../Constants/colors'
+import firebase, {firebaseApp, firebaseDb} from '../../Constants/firebase';
 
-export default class EditStory extends React.Component {
+class EditStory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      storyTitle : 'The Elephants and the Monkeys',    
-      writerName : 'jamesmiller94',
-      storyContent : 'Once upon a time there lived a group of elephants in the jungle. They lived near a pond.     The king of monkeys was thinking how to send back elephants. He thought very much and got an idea. When elephants will go to the jungle to eat food, monkeys will tell them that the lions are coming to that pond. The elephants should go away. If the lions see them, they will kill them and eat them. So they should go from there. Next morning the king of monkeys told everything to the elephants. Hearing this they ran away from the pond and',
-      wordText : '',
-      passCode : '6308',
+      storyName : '',    
+      storyContent : '',
+      oneWord : '',
+      passCode : '',
       switchVal_passcode : false, 
       selectedThemeId : '2'
     }
+  }
+
+  componentWillMount(){
+    let _selectedStoryId = this.props.selectedStoryId;
+    this.setState({selectedStoryId : _selectedStoryId});
+    let _passCode = this.props.StoriesList[_selectedStoryId].passCode;
+    let _storyContent = this.props.StoriesList[_selectedStoryId].storyContent;
+    let _selectedThemeId = this.props.StoriesList[_selectedStoryId].defaultStoryThemeColor; 
+    let _storyName = this.props.StoriesList[_selectedStoryId].storyName; 
+
+    this.setState({storyContent : _storyContent});
+    this.setState({selectedThemeId : _selectedThemeId});
+    this.setState({passCode : _passCode});
+    this.setState({storyName : _storyName});
   }
 
   handleChooseColor(themeId){
     this.setState({selectedThemeId : themeId});
     console.log('themeId', themeId);
   }
+  
+  handleSwitch(switchVal){
+    this.setState({switchVal_passCode : switchVal})
+    if (switchVal){
+      Actions.CreatePasscode({selectedThemeId : this.state.selectedThemeId, storyName : this.state.storyName});
+      this.setState({switchVal_passCode : false})
+    }
+  }
 
+  componentWillReceiveProps(nextProps){
+    console.log('nextProps', nextProps);
+    if (this.state.passCode != nextProps.passCode){
+      this.setState({passCode : nextProps.passCode});
+    }
+  }
+  
+  handleSave(){
+    if (!this.state.storyName) {
+      return Alert.alert('Please fill out Story Name');
+    }
+    firebase.database().ref('Stories/' + this.props.selectedStoryId).update({
+      defaultStoryThemeColor : this.state.selectedThemeId,
+      passCode : this.state.passCode,
+      storyName : this.state.storyName,
+      storyContent : this.state.storyContent,
+      //createdBy : this.props.userName
+    })
+    .then((res)=>{
+      //console.log('res', res, res.key);
+      this.props.updateSelectedStoryId(res.key);
+    })
+    Actions.ShowStory({storyName : this.state.storyName}); 
+  }
   render() {
     console.log(this.state.passCode);
     return (
@@ -51,7 +98,11 @@ export default class EditStory extends React.Component {
           <Title style={styles.headerTitle}>Edit Story</Title>
         </Body>
         <Right>
-          <Button transparent onPress={()=>Actions.ShowStory()}>
+          <Button transparent onPress={()=> {
+              this.handleSave();
+              Actions.ShowStory();
+            }}
+          >
             <Text style={styles.headerRightBtn}>Save</Text>
           </Button>
         </Right>
@@ -97,7 +148,7 @@ export default class EditStory extends React.Component {
             <Right>
               <Switch 
                 value = {this.state.switchVal_passcode} 
-                onValueChange={(switchVal)=>this.setState({switchVal_passcode : switchVal})} 
+                onValueChange={(switchVal)=>this.handleSwitch(switchVal)} 
                 onTintColor={colors.colorNavy}
               />
             </Right>
@@ -106,7 +157,7 @@ export default class EditStory extends React.Component {
       </View>
       
       <View style={styles.storyContentContainer}>
-        <Label style={styles.storyTitle}>{this.state.storyTitle}</Label>
+        <Label style={styles.storyTitle}>{this.state.storyName}</Label>
         <TextInput 
           multiline={true} 
           editable={true}
@@ -117,14 +168,23 @@ export default class EditStory extends React.Component {
       </View>
 
       <TextInput 
+        ref = {(e)=> {textInput = e}} 
+        autoFocus = {true}
         placeholder = "Enter a word"
         placeholderTextColor = {colors.colorGreenLight}
         autoCorrect = {false}
         borderColor = {colors.colorGreenLight}
         borderRadius = {1}
         style={styles.inputBox}
-        onChangeText={(text) => this.setState({wordText: text})}
-        value={this.state.wordText}
+        value={this.state.oneWord}
+        onChangeText={(text) => this.setState({oneWord: text})}
+        onSubmitEditing = {(event)=>{
+          console.log('onewrd', event.nativeEvent.text);
+          let _storyContent = this.state.storyContent;
+          _storyContent = _storyContent + event.nativeEvent.text + ' ';
+          this.setState({storyContent : _storyContent});
+          this.setState({oneWord : ''});
+        }}
       />
     </View>
     );
@@ -201,3 +261,19 @@ const styles = StyleSheet.create({
     //padding : 8
   }
 });
+
+const mapStateToProps = (state) => ({
+  userId : state.user.userId,
+  userName : state.user.userName,
+  defaultThemeColor : state.user.defaultThemeColor,
+  passCode : state.stories.passCode,
+  selectedStoryId : state.stories.selectedStoryId,
+  StoriesList : state.stories.StoriesList,
+});
+const mapDispatchToProps = (dispatch) => ({
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditStory);

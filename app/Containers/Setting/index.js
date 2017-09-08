@@ -60,7 +60,7 @@ class Setting extends React.Component {
       this.state.defaultThemeColor, 
       this.state.isNewWordNotifyEnabled, 
       this.state.isNewStoriesNotifyEnabled);
-    Actions.ShowStory();
+    Actions.pop();
   }
   handleChooseColor(themeId){
     this.setState({selectedThemeId : themeId});

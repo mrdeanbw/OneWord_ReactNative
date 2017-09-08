@@ -14,7 +14,11 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
-import colors, {StoryThemeColor}  from '../../Constants/colors';
+import colors, {StoryThemeColorLight, StoryThemeColorDark}  from '../../Constants/colors';
+import * as storyActions from '../../actions/stories';
+
+
+import { LinearGradient } from 'expo';
 
 class StoryList extends React.Component {
   constructor(props){
@@ -24,28 +28,47 @@ class StoryList extends React.Component {
     }
   }
   componentWillMount(){
-    
+    if (this.state.storiesList != this.props.storiesList){
+      this.setState({storiesList : this.props.storiesList});
+    }
   }
 
-  componentWillReceiveProps(nextProps){
-    console.log('next pros in storylist', nextProps);
+  componentWillReceiveProps(nextProps) {
+    
     if (this.state.storiesList != nextProps.storiesList){
       this.setState({storiesList : nextProps.storiesList});
     }
   }
 
+  handleSelectStory(storyInfo, selectedStoryId){
+    this.props.updateSelectedStoryId(selectedStoryId);
+    Actions.ShareStory({storyInfo})
+  }
   renderStoriesList(storyIndex, index){
-    console.log('storyData', storyIndex, index, this.state.storiesList[storyIndex].storyName);
     let storyInfo = this.state.storiesList[storyIndex];
-    let storyColor = StoryThemeColor[this.state.storiesList[storyIndex].defaultStoryThemeColor];
+    let storyColorLight = StoryThemeColorLight[this.state.storiesList[storyIndex].defaultStoryThemeColor];
+    let storyColorDark = StoryThemeColorDark[this.state.storiesList[storyIndex].defaultStoryThemeColor];
     
     return (
-    
-      <View style={[styles.storyItemView,{backgroundColor : storyColor}]} key={index}>
-        <TouchableOpacity onPress={() => Actions.ShareStory({storyInfo})}>
-          <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
-        </TouchableOpacity>
-      </View>
+      <LinearGradient
+        colors = {[storyColorLight, storyColorDark]}
+        style={{alignItems: 'center'}}
+        style = {{
+          position : 'relative',
+          left : 0,
+          right : 0,
+          top : 0,
+          height : 100,
+        }}
+        start = {{x : 0, y : 1 }}
+        end = {{x : 1, y : 1}}
+      >
+        <View style={[styles.storyItemView,{}]} key={index}>
+          <TouchableOpacity onPress={() => this.handleSelectStory(storyInfo, storyIndex)}>
+            <Text style={styles.itemText}>{this.state.storiesList[storyIndex].storyName}</Text>
+          </TouchableOpacity>
+        </View>
+      </LinearGradient>
     )
   }
 
@@ -53,12 +76,26 @@ class StoryList extends React.Component {
     return (
       <ScrollView style={styles.ScrollViewContainer}>
          <View style={styles.container}>
-          <View style={[styles.storyItemView,{backgroundColor : '#5CC2FF'}]}>
-            <TouchableOpacity onPress={()=>Actions.CreateStory()}>
-              <Text style={styles.itemText}>Start a new story...</Text>
-            </TouchableOpacity>
-          </View>
-
+         
+            <LinearGradient
+              colors = {[StoryThemeColorLight[3], StoryThemeColorDark[3]]}
+              style={{alignItems: 'center'}}
+              style = {{
+                position : 'relative',
+                left : 0,
+                right : 0,
+                top : 0,
+                height :100
+              }}
+              start = {{x : 0, y : 1 }}
+              end = {{x : 1, y : 1}}
+            >
+              <View style={[styles.storyItemView,{}]}>
+                <TouchableOpacity onPress={()=>Actions.CreateStory()}>
+                  <Text style={styles.itemText}>Start a new story...</Text>
+                </TouchableOpacity>
+              </View>
+            </LinearGradient>
           {
             this.state.storiesList && Object.keys(this.state.storiesList).map((storyIndex, index) => 
               this.renderStoriesList(storyIndex, index)
@@ -77,23 +114,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    //marginTop : 64
   },
   storyItemView:{
     flex : 1,
     flexDirection: 'row',
     alignItems : 'center',
     justifyContent : 'center',
-    borderTopLeftRadius: 6,
-    borderTopRightRadius: 6,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
     marginBottom : -5,   
     height : 100,
-
   },
   itemText:{
     textAlign : 'center',
     textAlignVertical : 'center',
     fontSize : 22,
     color : '#ffffff',
+    backgroundColor : 'transparent',
     fontWeight : 'bold'
   }
 });
@@ -104,6 +142,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   login: (userName) => dispatch(authActions.login(userName)),
+  updateSelectedStoryId : (storyId) => dispatch(storyActions.updateSelectedStoryId(storyId)),
 });
 
 export default connect(
