@@ -76,15 +76,15 @@ class CheckPasscode extends React.Component {
     return (
       <View style={[styles.container, {backgroundColor : StoryThemeColorLight[this.state.storyThemeColor]}]}>  
         <Header style={styles.headerContainer}>     
-          <Left style={{flex : .5}}>
+          <Left style={{flex : 1}}>
             <Button transparent onPress={()=> this.handleBackButton()}>
               <Icon name='arrow-back' style={{color : colors.colorWhite, flex : .5}}/>
             </Button>
           </Left>
-          <Body style={{flex : 1}}>
+          <Body style={{flex : 2, alignItems : 'center'}}>
             <Title style={styles.headerTitle}>Unlock Story</Title>
           </Body>
-          <Right style={{flex : .5}}>
+          <Right style={{flex : 1}}>
           </Right>
         </Header>
 

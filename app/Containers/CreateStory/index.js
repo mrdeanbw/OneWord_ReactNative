@@ -91,15 +91,15 @@ class CreateStory extends React.Component {
     return (
     <View style={styles.container}>
       <Header style={styles.headerContainer}>
-        <Left>
+        <Left style={{flex:1}}>
           <Button transparent onPress={()=>Actions.pop()}>
             <Icon name='arrow-back' style={{color : colors.colorPurpleDark}}/>
           </Button>
         </Left>
-        <Body>
+        <Body style={{flex : 2, alignItems : 'center'}}>
           <Title style={styles.headerTitle}>Create Story</Title>
         </Body>
-        <Right>
+        <Right style={{flex:1}}>
           <Button transparent onPress={()=>this.onPublish()}>
             <Text style={styles.headerRightBtn}>Publish</Text>
           </Button>

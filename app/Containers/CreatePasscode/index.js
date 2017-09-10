@@ -50,14 +50,9 @@ class CreatePasscode extends React.Component {
     if (passCode.length>0 && passCode.length < 4) return (
       Alert.alert('Passcode length must be 4')
     )
-    //Actions.pop({passCode : passCode});
-    // Actions.CreateStory({
-    //   passCode : passCode,
-    //   selectedThemeId : this.props.selectedThemeId, 
-    //   storyName : this.props.storyName
-    // });
+
     this.props.setPasscode(passCode);
-    //Actions.CreateStory({passCode : passCode});
+
     Actions.pop();
     setTimeout(()=> {
       Actions.refresh({passCode : passCode});
@@ -68,15 +63,15 @@ class CreatePasscode extends React.Component {
     return (
       <View style={styles.container}>
         <Header style={styles.headerContainer}>     
-          <Left style={{flex : .5}}>
+          <Left style={{flex : 1}}>
             <Button transparent onPress={()=> this.handleBackButton()}>
               <Icon name='arrow-back' style={{color : colors.colorWhite, flex : .5}}/>
             </Button>
           </Left>
-          <Body style={{flex : 1}}>
+          <Body style={{flex : 2, alignItems : 'center'}}>
             <Title style={styles.headerTitle}>Create Passcode</Title>
           </Body>
-          <Right style={{flex : .5}}>
+          <Right style={{flex : 1}}>
           </Right>
         </Header>
 

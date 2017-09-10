@@ -59,14 +59,18 @@ class StoryList extends React.Component {
         colors = {[storyColorLight, storyColorDark]}
         style={{alignItems: 'center'}}
         style = {{
+          borderTopLeftRadius : 6,
+          borderTopRightRadius : 6,
           position : 'relative',
           left : 0,
           right : 0,
           top : 0,
           height : 100,
+          marginBottom : -5
         }}
         start = {{x : 0, y : 1 }}
         end = {{x : 1, y : 1}}
+        key = {index}
       >
          {
             this.state.storiesList[storyIndex].passCode == '' ?
@@ -96,11 +100,14 @@ class StoryList extends React.Component {
               colors = {[StoryThemeColorLight[3], StoryThemeColorDark[3]]}
               style={{alignItems: 'center'}}
               style = {{
+                borderTopLeftRadius : 6,
+                borderTopRightRadius : 6,
                 position : 'relative',
                 left : 0,
                 right : 0,
                 top : 0,
-                height :100
+                height :100,
+                marginBottom : -5
               }}
               start = {{x : 0, y : 1 }}
               end = {{x : 1, y : 1}}
@@ -156,8 +163,7 @@ const styles = StyleSheet.create({
     top : 10,
     color: '#fefefe',
     backgroundColor : 'transparent'
-  }
-  
+  }  
 });
 
 const mapStateToProps = (state) => ({

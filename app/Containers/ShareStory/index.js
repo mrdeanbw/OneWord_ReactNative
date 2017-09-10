@@ -48,15 +48,15 @@ class ShareStory extends React.Component {
     return (
       <View style={[styles.container, {backgroundColor : StoryThemeColorLight[this.state.storyThemeColor]}]}>
         <Header style={styles.headerContainer}>
-          <Left>
+          <Left style={{flex : 1}}>
             <Button transparent onPress={()=>Actions.pop()}>
-              <Icon name='arrow-back' style={{color : colors.colorWhite}}/>
+              <Icon name="ios-arrow-back" style={{color : colors.colorWhite}}/>
             </Button>
           </Left>
-          <Body>
+          <Body style={{flex : 2, alignItems : 'center'}}>
             <Title style={styles.headerTitle}>Story</Title>
           </Body>
-          <Right>
+          <Right style={{flex : 1}}>
             <TouchableOpacity onPress={()=>Actions.Detail()}>
               <Text style={styles.navBarButtonWhite}>Share</Text>
             </TouchableOpacity>

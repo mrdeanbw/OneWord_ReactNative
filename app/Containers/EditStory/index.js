@@ -89,15 +89,15 @@ class EditStory extends React.Component {
     return (
     <View style={styles.container}>
       <Header style={styles.headerContainer}>
-        <Left>
+        <Left style={{flex:1}}>
           <Button transparent onPress={()=>Actions.pop()}>
-            <Icon name='arrow-back' style={{color : colors.colorRedLight}}/>
+            <Icon name="ios-arrow-back" style={{color : colors.colorRedLight}}/>
           </Button>
         </Left>
-        <Body>
+        <Body style={{flex : 2, alignItems : 'center'}}>
           <Title style={styles.headerTitle}>Edit Story</Title>
         </Body>
-        <Right>
+        <Right style={{flex:1}}>
           <Button transparent onPress={()=> {
               this.handleSave();
               Actions.ShowStory();

@@ -15,7 +15,7 @@ import {
 
 import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
-import { Container, Header, Item, Input, Icon } from 'native-base';
+import { Form, Item, Label, List, ListItem, Input, Switch, Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import { LinearGradient } from 'expo';
 
 import colors, {StoryThemeColorLight, StoryThemeColorDark}  from '../../Constants/colors';
@@ -104,6 +104,20 @@ class Search extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Header style={styles.headerContainer}>
+          <Left style={{flex : 1}}>
+            <TouchableOpacity onPress={()=> Actions.pop()}>
+              <Icon name="ios-arrow-back" style={styles.navbarIconBlack} />
+            </TouchableOpacity>
+          </Left>
+          <Body style={{flex : 2, alignItems : 'center'}}>
+            <Title style={styles.headerTitle}>Search</Title>
+          </Body>
+          <Right style={{flex : 1}}>
+            <Text></Text>
+          </Right>
+        </Header>
+        
         <Header searchBar rounded style={{paddingTop : 0, height : 50, backgroundColor : '#eeeeee'}}>
           <Item style={{backgroundColor : '#ffffff'}}>
             <Input placeholder="Names of stories" onChangeText={(text)=>this.handleChangeText(text)} value={this.state.searchkey} />
@@ -130,6 +144,15 @@ const styles = StyleSheet.create({
     fontSize : 23,
     alignItems : 'center',
     justifyContent: 'center',
+  },
+  headerTitle:{
+    color : colors.colorBlack,
+    //flex : 2,
+    justifyContent  : 'center',
+    alignItems : 'center',
+  },
+  headerContainer:{
+    backgroundColor : colors.colorWhite
   },
   InputContainer:{
     flex: 1.2,
@@ -162,7 +185,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop : 64
+    // marginTop : 64
   },
   storyItemView:{
     flex : 1,

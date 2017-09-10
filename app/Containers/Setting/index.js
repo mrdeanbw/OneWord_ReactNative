@@ -43,17 +43,6 @@ class Setting extends React.Component {
     console.log('setting', userId, userName);
   }
   handleSave(){
-    // firebase.database().ref('Users/').push({
-    //   username : this.state.userName,
-    //   defaultThemeColor : this.state.dafaultThemeColor,
-    //   isNewWordNotifyEnabled : false,
-    //   isNewStoriesNotifyEnabled : false,
-    //   //passCode : this.state.passCode,
-    //   //storyName : this.state.storyName,
-    //   //storyContent : ''
-    // })
-    // .then((res)=>console.log(res));
-    //setUser()
     this.props.setUser(
       this.state.userId, 
       this.state.userName, 
@@ -72,22 +61,22 @@ class Setting extends React.Component {
     return (
     <View style={styles.container}>
       <Header style={styles.headerContainer}>
-        <Left>
+        <Left style={{flex:1}}>
           <Button transparent onPress={()=>Actions.pop()}>
-            <Icon name='arrow-back' style={{color : colors.colorPurpleDark}}/>
+            <Icon name="ios-arrow-back" style={{color : colors.colorPurpleDark}}/>
           </Button>
         </Left>
-        <Body>
+        <Body style={{flex : 2, alignItems : 'center'}}>
           <Title style={styles.headerTitle}>Setting</Title>
         </Body>
-        <Right>
+        <Right style={{flex:1}}>
           <Button transparent onPress={()=>this.handleSave()}>
             <Text style={styles.headerRightBtn}>Save</Text>
           </Button>
         </Right>
       </Header>
       <View style={styles.viewContainer}>
-        <Form>
+        <Form style={styles.formStyle}>
           <Item floatingLabel>
             <Label style={{fontSize : 15}}>YOUR NAME</Label>
             <Input 
@@ -104,15 +93,7 @@ class Setting extends React.Component {
             <Label style={{fontSize : 15}}>DEFAULT COLOR</Label>    
           </Item>
         </Form>
-        {/* <List>
-          <ListItem>
-            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPink}]}/>            
-            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorNavy}]}/>       
-            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorPurple}]}/>       
-            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorBlue}]}/>       
-            <View style={[styles.colorBoxItem, {backgroundColor:colors.colorGreen}]}/>      
-          </ListItem>
-        </List> */}
+     
         <List>
           <ListItem>
             <TouchableOpacity onPress={()=>this.handleChooseColor(0)} >
@@ -191,11 +172,19 @@ const styles = StyleSheet.create({
     fontSize :18,
     color : colors.colorPurpleDark
   },
+  formStyle:{
+    
+  },
+  headerTitle:{
+    color : colors.colorPurpleDark
+  },
   formContainer:{
     marginTop : 20
   },
   inputBox:{
-    marginBottom : 10
+    marginBottom : 10,
+    //marginHorizontal : 20
+    marginLeft : 10
   },
   ListItem:{
     borderWidth : 0,

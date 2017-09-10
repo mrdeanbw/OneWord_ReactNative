@@ -81,8 +81,7 @@ export default class Home extends React.Component {
             <Text style={styles.titleText}>Explore Stories</Text>
             <View style={styles.contentContainer}>
               <Text style={styles.contentText}>Nam dapibus nisl vitae elit fringilla rutrum. </Text>
-              <Text style={styles.contentText}>Aenean sollicitudin, erat a elementum rutrum, </Text>
-              <Text style={styles.contentText}>neque sem.</Text>
+              <Text style={styles.contentText}>Aenean sollicitudin, erat a elementum rutrum, neque sem.</Text>
             </View>
           </View>
         
@@ -95,9 +94,7 @@ export default class Home extends React.Component {
           <View style={styles.topContainer}>
             <Text style={styles.titleText}>Join or Start a Story</Text>
             <View style={styles.contentContainer}>
-              <Text style={styles.contentText}>Aenean sollicitudin, erat a elementum rutrum,</Text>
-              <Text style={styles.contentText}>neque sem. Nam dapibus nisl vitae elit </Text>
-              <Text style={styles.contentText}>fringilla rutrum.</Text>
+              <Text style={styles.contentText}>Aenean sollicitudin, erat a elementum rutrum, neque sem. Nam dapibus nisl vitae elit fringilla rutrum.</Text>
             </View>
           </View>
         
@@ -111,8 +108,7 @@ export default class Home extends React.Component {
             <Text style={styles.titleText}>Add a Word to your Story!</Text>
             <View style={styles.contentContainer}>
               <Text style={styles.contentText}>Nam dapibus nisl vitae elit fringilla rutrum.</Text>
-              <Text style={styles.contentText}>Aenean sollicitudin, erat a elementum rutrum,</Text>
-              <Text style={styles.contentText}>neque sem.</Text>
+              <Text style={styles.contentText}>Aenean sollicitudin, erat a elementum rutrum, neque sem.</Text>
             </View>
           </View>
         

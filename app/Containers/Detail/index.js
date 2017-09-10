@@ -71,26 +71,26 @@ class Detail extends React.Component {
     return (
       <Container>
         <Header style={styles.headerContainer}>
-          <Left>
+          <Left style={{flex : 1}}> 
             <Button transparent onPress={()=>this.onSearch()}>
               <Icon name="ios-search" style={styles.navbarIcon} />
             </Button>
           </Left>
-          <Body style={{flex : 2}}> 
+          <Body style={{flex : 2, alignItems : 'center'}}>
             <Title style={styles.headerTitle}>One Word at a Time</Title>
           </Body>
-          <Right>
+          <Right style={{flex : 1}}> 
             <Button transparent onPress={()=>this.onSetting()}>
               <Icon name="ios-settings-outline" style={styles.navbarIcon} />
             </Button>
           </Right>
-      </Header>
+        </Header>
 
-        <Tabs initialPage={0} tabBarPosition = 'top' tabBarUnderlineStyle={{backgroundColor : '#915DF4'}}>
-          <Tab textStyle={{color : '#915DF4'}} heading="Explore Stories" >
+        <Tabs Style={{backgroundColor : '#fff'}} initialPage={0} tabBarPosition = 'top' style={{backgroundColor : '#fff'}} tabBarUnderlineStyle={{ position:'absolute', marginBottom : 45, backgroundColor : '#915DF4'}}>
+          <Tab  tabStyle={{backgroundColor : '#fff'}}  activeTabStyle ={{backgroundColor : '#fff'}} textStyle ={{color : '#4f4f4f', fontWeight : '400'}} activeTextStyle={{color : '#915DF4'}} heading="Explore Stories" tabStyle={{backgroundColor : '#ffffff'}} style={{backgroundColor : '#fff'}} >
             <StoryList />
           </Tab>
-          <Tab textStyle={{color : '#915DF4'}} heading="My Words">
+          <Tab tabStyle={{backgroundColor : '#fff'}} activeTabStyle ={{backgroundColor : '#fff'}} textStyle ={{color : '#4f4f4f'}}  activeTextStyle={{color : '#915DF4'}} heading="My Words">
             <MyWords />
           </Tab>
         </Tabs>
@@ -107,8 +107,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  headerTitle:{
+    color : '#3f3f3f'
+  },  
   headerContainer:{
-    borderBottomWidth : 0
+    borderBottomWidth : 0,
+    backgroundColor: '#fff',
   },
   storyItemView:{
     flex : 1,

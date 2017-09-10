@@ -27,6 +27,7 @@ import {
 } from 'react-native-router-flux';
 
 import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
+import { Font } from 'expo';
 import store from './store';
 import Home from './Containers/Home';
 import Login from './Containers/Login';
@@ -61,12 +62,7 @@ const scenes = Actions.create(
    
     <Scene key="Login" hideNavBar component={ Login } />   
 
-    <Scene key="Search" hideNavBar = {false} title="Search" component={Search} navigationBarStyle={{ borderBottomWidth: 0 }} 
-      renderBackButton={()=>
-        <TouchableOpacity onPress={()=> Actions.pop()}>
-          <Icon name="ios-arrow-back" style={styles.navbarIconBlack} />
-        </TouchableOpacity>
-      }
+    <Scene key="Search" hideNavBar = {true} title="Search" component={Search} navigationBarStyle={{ borderBottomWidth: 0 }} 
     />
     <Scene key="Setting" hideNavBar = {true} title="Setting" component={Setting} />
     <Scene key="CreateStory" hideNavBar = {true} title="Create Story" component={CreateStory} />
@@ -93,6 +89,11 @@ const scenes = Actions.create(
 );
 
 export default class Root extends React.Component {
+  componentWillMount(){
+    Font.loadAsync({
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+    });
+  }
   render() {
     return (
       <Provider store={ store }>

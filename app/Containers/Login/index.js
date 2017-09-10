@@ -68,21 +68,25 @@ class Login extends React.Component {
         </View>
         <View style={styles.InputContainer}> 
           <TextInput
-            maxLength = {40}
+            maxLength = {30}
+            width = {300}
+            textAlign = 'center'
             placeholder = 'Enter your name...'
             placeholderTextColor = '#C0C0C0'
             autoCorrect = {false}
             style = {styles.nameText}
+            underlineColorAndroid = 'transparent'
             onChangeText={(userName) => this.setState({userName})}
           >
           </TextInput>
           <View
             style={{
-              width : 350,
+              width : 300,
+              marginHorizontal : 20,
               borderBottomColor: '#c0c0c0',
               borderBottomWidth: 1,  
               marginTop : 10,
-              marginBottom : 20
+              marginBottom : 20,
             }}
           />
           
@@ -122,15 +126,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   InputContainer:{
-    flex: 1.2,
+    //flex: 1.2,
     alignItems : 'center'
   },
   exploreStoriesText:{
     color : '#B85CFF',
     textAlign : 'center',
     fontSize : 19,
-    paddingHorizontal : 10,
-    
+    paddingHorizontal : 10,    
   },
   exploreStoriesViewStyle:{
     // width : '90%',
@@ -140,10 +143,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderColor : '#FFFFFF',
     borderRadius : 20,
-    height : 50
+    height : 50,
+    marginBottom : 20
   },
   nameText:{
-    color : '#ffffff'
+    color : '#ffffff',
+    textAlign : 'center'
   }
 });
 
