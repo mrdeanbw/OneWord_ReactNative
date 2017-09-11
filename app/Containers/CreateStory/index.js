@@ -93,7 +93,7 @@ class CreateStory extends React.Component {
       <Header style={styles.headerContainer}>
         <Left style={{flex:1}}>
           <Button transparent onPress={()=>Actions.pop()}>
-            <Icon name='arrow-back' style={{color : colors.colorPurpleDark}}/>
+            <Icon name="ios-arrow-back" style={{color : colors.colorPurpleDark}}/>
           </Button>
         </Left>
         <Body style={{flex : 2, alignItems : 'center'}}>

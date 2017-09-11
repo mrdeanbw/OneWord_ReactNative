@@ -74,6 +74,7 @@ class ShareStory extends React.Component {
             editable={false}
             style={styles.storyContent}
             value = {this.state.storyContent}
+            underlineColorAndroid = 'transparent'
           />
           <Button style={[styles.JoinButton, {backgroundColor : StoryThemeColorLight[this.state.storyThemeColor]}]} onPress={()=>this.handleJoinStory()}>
             <Text style={styles.buttonText}>Join the Story</Text>

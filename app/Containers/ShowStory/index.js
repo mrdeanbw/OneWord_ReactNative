@@ -80,6 +80,7 @@ class ShowStory extends React.Component {
           editable={false}
           style={styles.storyContent}
           value = {this.state.storyContent}
+          underlineColorAndroid = 'transparent'
         />
       </View>
       <TextInput 
@@ -101,6 +102,7 @@ class ShowStory extends React.Component {
           this.setState({storyContent : storyContent});
           this.setState({oneWord : ''});
         }}
+        underlineColorAndroid = 'transparent'
         >
       </TextInput>
     </View>

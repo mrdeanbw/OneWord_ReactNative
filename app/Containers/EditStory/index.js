@@ -180,6 +180,7 @@ class EditStory extends React.Component {
         borderRadius = {1}
         style={styles.inputBox}
         value={this.state.oneWord}
+        underlineColorAndroid = 'transparent'
         onChangeText={(text) => this.setState({oneWord: text})}
         onSubmitEditing = {(event)=>{
           console.log('onewrd', event.nativeEvent.text);
@@ -255,13 +256,10 @@ const styles = StyleSheet.create({
     fontSize : 17
   },
   inputBox:{
-    //borderColor : colors.colors.colorGreenLight,
-    //borderWidth : 1,
     opacity  : .8,
     borderRadius : 15,
     marginBottom : 20,
     marginHorizontal : 20,
-    //padding : 8
   }
 });
 

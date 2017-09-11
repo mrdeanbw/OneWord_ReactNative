@@ -97,7 +97,10 @@ class MyWords extends React.Component {
           left : 0,
           right : 0,
           top : 0,
-          height  :100
+          height  :100,
+          borderTopLeftRadius : 6,
+          borderTopRightRadius : 6,
+          marginBottom : -5,
         }}
         start = {{x : 0, y : 1 }}
         end = {{x : 1, y : 1}}
@@ -131,6 +134,9 @@ class MyWords extends React.Component {
             colors = {[StoryThemeColorLight[3], StoryThemeColorDark[3]]}
             style={{alignItems: 'center'}}
             style = {{
+              borderTopLeftRadius : 6,
+              borderTopRightRadius : 6,
+              marginBottom : -5,
               position : 'relative',
               left : 0,
               right : 0,

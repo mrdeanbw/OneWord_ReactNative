@@ -102,12 +102,12 @@ class StoryList extends React.Component {
               style = {{
                 borderTopLeftRadius : 6,
                 borderTopRightRadius : 6,
+                marginBottom : -5,
                 position : 'relative',
                 left : 0,
                 right : 0,
                 top : 0,
                 height :100,
-                marginBottom : -5
               }}
               start = {{x : 0, y : 1 }}
               end = {{x : 1, y : 1}}

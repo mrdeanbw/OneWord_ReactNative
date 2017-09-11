@@ -76,6 +76,7 @@ class ShowLockedStory extends React.Component {
             editable={false}
             style={styles.storyContent}
             value = {this.state.storyContent}
+            underlineColorAndroid = 'transparent'
           />
           <Button style={[styles.JoinButton, {backgroundColor : StoryThemeColorLight[this.state.storyThemeColor]}]} onPress={()=>this.onEnterPasscode()}>
             <Text style={styles.buttonText}>Enter a Passcode</Text>

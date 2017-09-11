@@ -65,7 +65,7 @@ class CreatePasscode extends React.Component {
         <Header style={styles.headerContainer}>     
           <Left style={{flex : 1}}>
             <Button transparent onPress={()=> this.handleBackButton()}>
-              <Icon name='arrow-back' style={{color : colors.colorWhite, flex : .5}}/>
+              <Icon name="ios-arrow-back" style={{color : colors.colorWhite, flex : .5}}/>
             </Button>
           </Left>
           <Body style={{flex : 2, alignItems : 'center'}}>
@@ -83,6 +83,7 @@ class CreatePasscode extends React.Component {
             maxLength = {1}
             autoCorrect = {false}
             style = {styles.passCodeLeftItem}
+            underlineColorAndroid = 'transparent'
             onChangeText={(passCodeItem0) => {
               this.setState({passCodeItem0});
             }}
@@ -91,6 +92,7 @@ class CreatePasscode extends React.Component {
           <TextInput
             maxLength = {1}
             autoCorrect = {false}
+            underlineColorAndroid = 'transparent'
             style = {styles.passCodeItem}
             onChangeText={(passCodeItem1) => {
               this.setState({passCodeItem1});
@@ -101,6 +103,7 @@ class CreatePasscode extends React.Component {
             maxLength = {1}
             autoCorrect = {false}
             style = {styles.passCodeItem}
+            underlineColorAndroid = 'transparent'
             onChangeText={(passCodeItem2) => {
               this.setState({passCodeItem2});
             }}
@@ -110,6 +113,7 @@ class CreatePasscode extends React.Component {
             maxLength = {1}
             autoCorrect = {false}
             style = {styles.passCodeRightItem}
+            underlineColorAndroid = 'transparent'
             onChangeText={(passCodeItem3) => {
               this.setState({passCodeItem3});
             }}
