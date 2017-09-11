@@ -12,7 +12,6 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-//import Button from 'apsl-react-native-button';
 
 import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
@@ -81,6 +80,7 @@ class CreatePasscode extends React.Component {
         <View style={styles.passcodeContainer}>
           <TextInput
             maxLength = {1}
+            underlineColorAndroid = 'transparent'
             autoCorrect = {false}
             style = {styles.passCodeLeftItem}
             underlineColorAndroid = 'transparent'
@@ -91,6 +91,7 @@ class CreatePasscode extends React.Component {
           </TextInput>
           <TextInput
             maxLength = {1}
+            underlineColorAndroid = 'transparent'
             autoCorrect = {false}
             underlineColorAndroid = 'transparent'
             style = {styles.passCodeItem}
@@ -101,6 +102,7 @@ class CreatePasscode extends React.Component {
           </TextInput>
           <TextInput
             maxLength = {1}
+            underlineColorAndroid = 'transparent'
             autoCorrect = {false}
             style = {styles.passCodeItem}
             underlineColorAndroid = 'transparent'
@@ -111,6 +113,7 @@ class CreatePasscode extends React.Component {
           </TextInput>
           <TextInput
             maxLength = {1}
+            underlineColorAndroid = 'transparent'
             autoCorrect = {false}
             style = {styles.passCodeRightItem}
             underlineColorAndroid = 'transparent'

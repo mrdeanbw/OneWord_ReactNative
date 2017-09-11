@@ -95,6 +95,7 @@ class CheckPasscode extends React.Component {
         <View style={styles.passcodeContainer}>
           <TextInput
             maxLength = {1}
+            underlineColorAndroid = 'transparent'
             autoCorrect = {false}
             style = {styles.passCodeLeftItem}
             underlineColorAndroid = 'transparent'
@@ -106,6 +107,7 @@ class CheckPasscode extends React.Component {
           </TextInput>
           <TextInput
             maxLength = {1}
+            underlineColorAndroid = 'transparent'
             autoCorrect = {false}
             style = {styles.passCodeItem}
             underlineColorAndroid = 'transparent'
@@ -117,6 +119,7 @@ class CheckPasscode extends React.Component {
           </TextInput>
           <TextInput
             maxLength = {1}
+            underlineColorAndroid = 'transparent'
             autoCorrect = {false}
             style = {styles.passCodeItem}
             underlineColorAndroid = 'transparent'
@@ -128,6 +131,7 @@ class CheckPasscode extends React.Component {
           </TextInput>
           <TextInput
             maxLength = {1}
+            underlineColorAndroid = 'transparent'
             autoCorrect = {false}
             style = {styles.passCodeRightItem}
             underlineColorAndroid = 'transparent'

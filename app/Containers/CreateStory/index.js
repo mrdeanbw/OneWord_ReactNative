@@ -179,6 +179,7 @@ class CreateStory extends React.Component {
                 value={this.state.storyName} 
                 placeholderTextColor = '#9e9e9e'
                 style={{fontSize : 15}}
+                underlineColorAndroid = 'transparent'
               />
             </Body>
           </ListItem>

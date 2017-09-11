@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-//import Button from 'apsl-react-native-button';
+
 import { connect } from 'react-redux';
 import { Actions, Scene, Router, ActionConst } from 'react-native-router-flux';
 import { Form, Item, Label, List, ListItem, Input, Switch, Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
@@ -34,8 +34,7 @@ class ShareStory extends React.Component {
     let _createBy = this.props.storyInfo.createdBy;
     let _storyContent = this.props.storyInfo.storyContent;
     let _storyThemeColor = this.props.storyInfo.defaultStoryThemeColor;
-    //let selectedStoryId = this.props.selectedStoryId;
-    
+        
     this.setState({storyName : _storyName});
     this.setState({createdBy : _createBy});
     this.setState({storyContent : _storyContent});
@@ -71,6 +70,7 @@ class ShareStory extends React.Component {
         <View style={styles.storyContentContainer}>
           <TextInput 
             multiline={true} 
+            underlineColorAndroid = 'transparent'
             editable={false}
             style={styles.storyContent}
             value = {this.state.storyContent}
@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.colorGreen,
-    //marginTop : 64
   },
   headerContainer:{
     backgroundColor : 'transparent',

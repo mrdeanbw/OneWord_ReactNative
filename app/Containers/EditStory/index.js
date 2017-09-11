@@ -176,6 +176,7 @@ class EditStory extends React.Component {
         placeholder = "Enter a word"
         placeholderTextColor = {colors.colorGreenLight}
         autoCorrect = {false}
+        underlineColorAndroid = 'transparent'
         borderColor = {colors.colorGreenLight}
         borderRadius = {1}
         style={styles.inputBox}
